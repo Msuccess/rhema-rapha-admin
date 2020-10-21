@@ -10,10 +10,9 @@
             </div>
             <div class="row">
               <div class="col-md-6 p-5">
-                <div class="mx-auto mb-5">
+                <div class="text-center mb-5">
                   <a routerLink="/">
-                    <img src="assets/images/logo.png" alt="" height="24" />
-                    <h3 class="d-inline align-middle ml-1 text-logo">Shreyu</h3>
+                    <img src="assets/images/logo.png" alt="" height="120" />
                   </a>
                 </div>
                 <h6 class="h5 mb-0 mt-4">Welcome back!</h6>
@@ -53,10 +52,8 @@
                   </div>
                   <!--begin::Action-->
                   <div class="kt-login__actions">
-                    <button mat-raised-button color="primary" (click)="submit()" id="kt_login_signin_submit"
-                      class="btn-block" [disabled]="loginForm.invalid">
-                      Login
-                    </button>
+                    <button class="btn btn-primary btn-block" (click)="submit()" id="kt_login_signin_submit"
+                      [disabled]="loginForm.invalid"> Login</button>
                   </div>
                   <!--end::Action-->
                 </form>
