@@ -11,17 +11,20 @@ import { Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpResponse } from '@angular/common/http';
 import { finalize, map } from 'rxjs/operators';
-import { LoadingBarService } from '@ngx-loading-bar/core';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-    constructor(private auth: AuthService, private loader: LoadingBarService) {}
+    constructor(
+        private auth: AuthService,
+        private ngxUiLoaderService: NgxUiLoaderService
+    ) {}
 
     intercept(
         request: HttpRequest<any>,
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
-        this.loader.start();
+        this.ngxUiLoaderService.start();
 
         if (!this.auth.isTokenExpired() && this.auth.isAuthenticated()) {
             request = this.addToken(request, this.auth.getToken());
@@ -30,15 +33,15 @@ export class JwtInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
-                    this.loader.start();
+                    // this.loader.start();
                     console.log('HttpResponse >>>', event);
                 } else if (event instanceof HttpErrorResponse) {
-                    this.loader.complete();
+                    // this.loader.complete();
                     console.log('HttpErrorResponse >>>', event);
                 }
                 return event;
-            }),
-            finalize(() => this.loader.complete())
+            })
+            // finalize(() => this.loader.complete())
         );
     }
 

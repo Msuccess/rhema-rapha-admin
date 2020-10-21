@@ -46,10 +46,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
     get f() {
         return this.loginForm.controls;
     }
+    isControlHasError(controlName: string, validationType: string): boolean {
+        const control = this.loginForm.controls[controlName];
+        if (!control) {
+            return false;
+        }
 
-    /**
-     * On submit form
-     */
+        const result =
+            control.hasError(validationType) &&
+            (control.dirty || control.touched);
+        return result;
+    }
+
     onSubmit() {
         this.submitted = true;
 

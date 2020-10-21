@@ -4,9 +4,9 @@ import { LayoutComponent } from './layouts/layout.component';
 
 const routes: Routes = [
     {
-        path: 'account',
+        path: 'auth',
         loadChildren: () =>
-            import('./auth/auth-routing').then((m) => m.AuthRoutingModule),
+            import('./auth/auth.module').then((m) => m.AuthModule),
     },
 
     {
