@@ -5,26 +5,26 @@
         <div class="card">
           <div class="card-body p-0">
 
-
+            <div class="px-1" *ngIf="loading|async">
+              <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+            </div>
             <div class="row">
               <div class="col-md-6 p-5">
-
-                <!-- <app-ui-preloader [display]="loading"></app-ui-preloader> -->
-
                 <div class="mx-auto mb-5">
                   <a routerLink="/">
                     <img src="assets/images/logo.png" alt="" height="24" />
                     <h3 class="d-inline align-middle ml-1 text-logo">Shreyu</h3>
                   </a>
                 </div>
-
                 <h6 class="h5 mb-0 mt-4">Welcome back!</h6>
                 <p class="text-muted mt-1 mb-4">Enter your email address and password to
                   access admin panel.</p>
 
                 <!--begin::Form-->
                 <form class="kt-form" [formGroup]="loginForm" autocomplete="off">
-
+                  <div *ngIf="hasFormErrors">
+                    <alert type="danger" dismissible="dismissible" (onClosed)="onClosed()">{{ errors|async }}</alert>
+                  </div>
 
                   <div class="form-group">
                     <mat-form-field appearance="outline">
@@ -51,15 +51,10 @@
                   </div>
                   <!--begin::Action-->
                   <div class="kt-login__actions">
-                    <button (click)="submit()"
-                      [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading|async}"
-                      id="kt_login_signin_submit" class="btn btn-primary btn-elevate kt-login__btn-primary"
-                      [disabled]="loginForm.invalid">Login</button>
-
-                    <a href="javascript:;" routerLink="/auth/forgot-password" class="kt-link kt-login__link-forgot">
-                      Forgot password
-                    </a>
-
+                    <button mat-raised-button color="primary" (click)="submit()" id="kt_login_signin_submit"
+                      class="btn-block" [disabled]="loginForm.invalid">
+                      Login
+                    </button>
                   </div>
                   <!--end::Action-->
                 </form>
