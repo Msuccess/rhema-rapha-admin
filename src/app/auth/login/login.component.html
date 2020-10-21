@@ -23,7 +23,9 @@
                 <!--begin::Form-->
                 <form class="kt-form" [formGroup]="loginForm" autocomplete="off">
                   <div *ngIf="hasFormErrors">
-                    <alert type="danger" dismissible="dismissible" (onClosed)="onClosed()">{{ errors|async }}</alert>
+                    <alert type="danger" dismissible="dismissible" (onClosed)="onClosed()">
+                      <span class="text-center">{{ errors|async }}</span>
+                    </alert>
                   </div>
 
                   <div class="form-group">
