@@ -6,7 +6,7 @@
     <div class="col-sm-8 col-xl-6">
       <div class="float-sm-right mt-3 mt-sm-0">
         <a id="add-appointment" class="btn btn-primary" href="javascript:0;" role="button" (click)="addDepartment()">
-          <i class="uil uil-book-medical ml-2"></i> Add Appointment
+          <i class="uil uil-book-medical ml-2"></i> Add Department
         </a>
       </div>
     </div>
@@ -52,7 +52,7 @@
                       <mat-icon>adjust</mat-icon>
                       <span>View</span>
                     </button>
-                    <button mat-menu-item (click)="editDepartment()">
+                    <button mat-menu-item (click)="editDepartment(row)">
                       <mat-icon>create</mat-icon>
                       <span>Edit</span>
                     </button>

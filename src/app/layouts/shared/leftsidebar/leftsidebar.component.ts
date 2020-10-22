@@ -28,8 +28,6 @@ export class LeftsidebarComponent implements OnInit {
      */
     logout() {
         this.authService.signOut();
-        this.router.navigate(['/account/login'], {
-            queryParams: { returnUrl: '/' },
-        });
+        this.router.navigate(['/auth/login']);
     }
 }

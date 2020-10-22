@@ -1,5 +1,9 @@
 <div class="dialog-content-wrapper">
-  <h2 mat-dialog-title>Add Appointment</h2>
+
+  <h2 mat-dialog-title>
+    <span *ngIf="updating$ | async">Update Department</span>
+    <span *ngIf="!(updating$ | async)">Add Department</span>
+  </h2>
   <div mat-dialog-content class="mat-typography">
 
     <form [formGroup]="departmentForm">
