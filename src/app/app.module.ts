@@ -1,3 +1,4 @@
+import { NgxUiLoaderModule, NgxUiLoaderHttpModule } from 'ngx-ui-loader';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { AuthGuard } from './core/guards/auth.guard';
 import { AppointmentModule } from './pages/appointment/appointment.module';
