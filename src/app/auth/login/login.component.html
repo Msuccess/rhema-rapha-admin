@@ -11,7 +11,7 @@
             <div class="row">
               <div class="col-md-6 p-5">
                 <div class="text-center mb-5">
-                  <a routerLink="/">
+                  <a routerLink="/auth">
                     <img src="assets/images/logo.png" alt="" height="120" />
                   </a>
                 </div>
@@ -22,9 +22,11 @@
                 <!--begin::Form-->
                 <form class="kt-form" [formGroup]="loginForm" autocomplete="off">
                   <div *ngIf="hasFormErrors">
-                    <alert type="danger" dismissible="dismissible" (onClosed)="onClosed()">
-                      <span class="text-center">{{ errors|async }}</span>
-                    </alert>
+                    <ngb-alert type="danger" (close)="close()">
+                      <span class="font-weight-bold">{{ errors | async  }}
+                      </span>
+                    </ngb-alert>
+
                   </div>
 
                   <div class="form-group">
@@ -53,8 +55,15 @@
                   <!--begin::Action-->
                   <div class="kt-login__actions">
                     <button class="btn btn-primary btn-block" (click)="submit()" id="kt_login_signin_submit"
-                      [disabled]="loginForm.invalid"> Login</button>
+                      [disabled]="loginForm.invalid">
+                      <span *ngIf="!(loading|async)">Login</span>
+
+                      <div class="spinner-border text-light" role="status" *ngIf="(loading|async)">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </button>
                   </div>
+
                   <!--end::Action-->
                 </form>
               </div>

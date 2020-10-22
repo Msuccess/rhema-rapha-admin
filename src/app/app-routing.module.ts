@@ -1,3 +1,4 @@
+import { AuthGuard } from './core/guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layouts/layout.component';
@@ -14,7 +15,7 @@ const routes: Routes = [
         component: LayoutComponent,
         loadChildren: () =>
             import('./pages/pages.module').then((m) => m.PagesModule),
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
 ];
 
