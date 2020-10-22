@@ -6,7 +6,9 @@ import {
   MatDatepickerModule,
   MatDialogModule,
   MatFormFieldModule,
+  MatIconModule,
   MatInputModule,
+  MatMenuModule,
   MatNativeDateModule,
   MatPaginatorModule,
   MatSelectModule,
@@ -14,7 +16,7 @@ import {
   MatSnackBarModule,
   MatTableModule,
 } from '@angular/material';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [],
   imports: [
@@ -30,6 +32,8 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
+    MatMenuModule,
+    MatIconModule,
     ToastrModule.forRoot(),
   ],
   exports: [
@@ -45,6 +49,8 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     MatTableModule,
     MatPaginatorModule,
     ToastrModule,
+    MatIconModule,
+    MatMenuModule,
   ],
 
   providers: [MatDatepickerModule, MatSnackBar],

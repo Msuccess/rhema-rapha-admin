@@ -32,9 +32,13 @@
 
     </form>
   </div>
-  <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial class="btn btn-primary">
-      Submit</button> &nbsp; &nbsp;
+  <div mat-dialog-actions class="mb-1">
+    <button mat-button cdkFocusInitial class="btn btn-primary" (click)="submit()">
+      <span *ngIf="!(loading|async)">Submit</span>
+      <div class="spinner-border text-light" role="status" *ngIf="(loading|async)">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </button> &nbsp; &nbsp;
     <button mat-dialog-close class="btn btn-danger">Cancel</button>
   </div>
 

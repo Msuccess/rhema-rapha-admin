@@ -5,6 +5,7 @@ import { ErrorService } from './../../../../core/services/error.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-add-department',
@@ -23,6 +24,7 @@ export class AddDepartmentComponent implements OnInit {
     private errorService: ErrorService,
     private utilService: UtilService,
     private departmentService: DepartmentService,
+    public dialogRef: MatDialogRef<AddDepartmentComponent>,
   ) {}
 
   initDepartmentForm() {
@@ -51,6 +53,7 @@ export class AddDepartmentComponent implements OnInit {
 
     this.departmentService.create(this.departmentForm.value).subscribe(
       (res) => {
+        this.dialogRef.close(true);
         this.loading.next(false);
         this.utilService.showSuccessToast('Department Added Successfully');
         console.log(res);

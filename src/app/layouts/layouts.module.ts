@@ -11,7 +11,6 @@ import { TopbarComponent } from './shared/topbar/topbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LeftsidebarComponent } from './shared/leftsidebar/leftsidebar.component';
 import { VerticalComponent } from './vertical/vertical.component';
-import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 @NgModule({
   // tslint:disable-next-line: max-line-length
@@ -24,19 +23,12 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
     FooterComponent,
     VerticalComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    UIModule,
-    LoadingBarModule,
-    SharedModule,
-  ],
+  imports: [CommonModule, RouterModule, UIModule, SharedModule],
   exports: [
     TopbarComponent,
     MenuComponent,
     LeftsidebarComponent,
     FooterComponent,
-    LoadingBarModule,
     SharedModule,
   ],
   providers: [EventService],

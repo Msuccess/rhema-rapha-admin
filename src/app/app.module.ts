@@ -1,7 +1,5 @@
-import { NgxUiLoaderModule, NgxUiLoaderHttpModule } from 'ngx-ui-loader';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { AuthGuard } from './core/guards/auth.guard';
-import { AppointmentModule } from './pages/appointment/appointment.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';

@@ -1,11 +1,9 @@
+import { LoaderService } from './../../../shared/loader/loader.service';
 import { AuthService } from './../../../auth/service/auth.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Notification } from './topbar.model';
-
 import { notificationItems } from './data';
-import { LoadingBarService } from '@ngx-loading-bar/core';
 
 @Component({
   selector: 'app-topbar',
@@ -30,15 +28,9 @@ export class TopbarComponent implements OnInit {
   @Output() settingsButtonClicked = new EventEmitter();
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-    private loadingBar: LoadingBarService,
-  ) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-    this.loadingBar.start();
-    // get the notifications
     this._fetchNotifications();
     this.openMobileMenu = false;
   }

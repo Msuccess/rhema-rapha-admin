@@ -18,7 +18,7 @@ import { AfterViewInit } from '@angular/core';
   styleUrls: ['./department.component.scss'],
 })
 export class DepartmentComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['name', 'description'];
+  displayedColumns: string[] = ['name', 'description', 'action'];
   dataSource: MatTableDataSource<DepartmentModel>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -55,7 +55,9 @@ export class DepartmentComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
+      if (result) {
+        this.getDepartments();
+      }
     });
   }
 
@@ -67,10 +69,31 @@ export class DepartmentComponent implements OnInit, AfterViewInit {
       },
       (error) => {
         this.utilService.showFailToast(this.errorService.getErrors(error));
+        this.dataSourceLength = 0;
+      },
+    );
+  }
+
+  deleteDepartment(id: string) {
+    this.departmentService.delete(id).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.getDepartments();
+      },
+      (error) => {
+        this.utilService.showFailToast(this.errorService.getErrors(error));
         console.log(this.errorService.getErrors(error));
       },
     );
   }
+
+  confirmDelete(id: string) {
+    this.utilService.showConfirm(() => this.deleteDepartment(id));
+  }
+
+  viewDepartment() {}
+
+  editDepartment() {}
 
   ngOnInit() {
     this.getDepartments();

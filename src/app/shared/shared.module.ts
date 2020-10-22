@@ -9,5 +9,6 @@ import { LoaderComponent } from './loader/loader.component';
   declarations: [ActionNotificationComponent, LoaderComponent],
   exports: [NgbModule, MatProgressBarModule, LoaderComponent],
   imports: [CommonModule, NgbModule, MatProgressBarModule],
+  entryComponents: [ActionNotificationComponent],
 })
 export class SharedModule {}
