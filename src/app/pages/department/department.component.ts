@@ -93,7 +93,19 @@ export class DepartmentComponent implements OnInit, AfterViewInit {
 
   viewDepartment() {}
 
-  editDepartment() {}
+  editDepartment(department: DepartmentModel) {
+    const dialogRef = this.dialog.open(AddDepartmentComponent, {
+      maxWidth: '500px',
+      width: '500px',
+      data: department,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getDepartments();
+      }
+    });
+  }
 
   ngOnInit() {
     this.getDepartments();

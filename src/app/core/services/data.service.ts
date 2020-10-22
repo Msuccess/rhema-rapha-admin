@@ -109,7 +109,7 @@ export class DataService<T> {
 
   public delete(id: string): Observable<any> {
     return this.httpClient
-      .delete(`${this.baseEndPoint}/${this.endPoint}/${id}`)
+      .delete(`${this.baseEndPoint}${this.endPoint}/${id}`)
       .pipe(
         catchError((err) => {
           this.handleError([]);

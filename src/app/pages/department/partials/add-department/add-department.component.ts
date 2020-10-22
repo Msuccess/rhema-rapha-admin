@@ -2,10 +2,10 @@ import { UtilService } from './../../../../core/services/util.service';
 import { DepartmentModel } from './../../model/department.model';
 import { DepartmentService } from './../../service/department.service';
 import { ErrorService } from './../../../../core/services/error.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-add-department',
@@ -25,6 +25,7 @@ export class AddDepartmentComponent implements OnInit {
     private utilService: UtilService,
     private departmentService: DepartmentService,
     public dialogRef: MatDialogRef<AddDepartmentComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DepartmentModel,
   ) {}
 
   initDepartmentForm() {
