@@ -1,0 +1,41 @@
+<div class="dialog-content-wrapper">
+  <h2 mat-dialog-title>Add Appointment</h2>
+  <div mat-dialog-content class="mat-typography">
+
+    <form [formGroup]="departmentForm">
+      <div *ngIf="hasFormErrors">
+        <ngb-alert type="danger" (close)="close()">
+          <span class="font-weight-bold">{{ errors | async  }}
+          </span>
+        </ngb-alert>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" placeholder="Name" formControlName="name" autocomplete="off" />
+          <mat-error *ngIf="isControlHasError('name','required')">
+            <strong>Email required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput placeholder="Description" rows="2" formControlName="description"></textarea>
+          <mat-error *ngIf="isControlHasError('description','required')">
+            <strong>Description required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial class="btn btn-primary">
+      Submit</button> &nbsp; &nbsp;
+    <button mat-dialog-close class="btn btn-danger">Cancel</button>
+  </div>
+
+</div>

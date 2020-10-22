@@ -1,5 +1,5 @@
+import { AddDepartmentComponent } from './department/partials/add-department/add-department.component';
 import { MaterialModule } from './material/material.module';
-import { AppointmentComponent } from './appointment/appointment.component';
 import { UIModule } from '../shared/ui/ui.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -12,17 +12,21 @@ import { AddAppointmentComponent } from './appointment/partials/add-appointment/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-    declarations: [DashboardComponent, AddAppointmentComponent],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        UIModule,
-        WidgetModule,
-        PagesRoutingModule,
-        MaterialModule,
-        NgbModule,
-    ],
-    entryComponents: [AddAppointmentComponent],
+  declarations: [
+    DashboardComponent,
+    AddAppointmentComponent,
+    AddDepartmentComponent,
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    UIModule,
+    WidgetModule,
+    PagesRoutingModule,
+    MaterialModule,
+    NgbModule,
+  ],
+  entryComponents: [AddAppointmentComponent, AddDepartmentComponent],
 })
 export class PagesModule {}
