@@ -9,9 +9,7 @@ import { DepartmentComponent } from './department.component';
 const routes: Routes = [{ path: '', component: DepartmentComponent }];
 
 @NgModule({
-  declarations: [DepartmentComponent, , ViewDepartmentComponent],
+  declarations: [DepartmentComponent, ViewDepartmentComponent],
   imports: [CommonModule, RouterModule.forChild(routes), MaterialModule],
 })
-export class DepartmentModule {
-  constructor() {}
-}
+export class DepartmentModule {}

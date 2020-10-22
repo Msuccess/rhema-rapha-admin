@@ -1,3 +1,4 @@
+import { UtilService } from './../../core/services/util.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -13,7 +14,7 @@ import {
   MatSnackBarModule,
   MatTableModule,
 } from '@angular/material';
-
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 @NgModule({
   declarations: [],
   imports: [
@@ -29,6 +30,7 @@ import {
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
+    ToastrModule.forRoot(),
   ],
   exports: [
     MatDialogModule,
@@ -42,7 +44,9 @@ import {
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
+    ToastrModule,
   ],
+
   providers: [MatDatepickerModule, MatSnackBar],
 })
 export class MaterialModule {}

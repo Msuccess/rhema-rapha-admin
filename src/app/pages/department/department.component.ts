@@ -1,3 +1,5 @@
+import { ErrorService } from './../../core/services/error.service';
+import { UtilService } from './../../core/services/util.service';
 import { DepartmentService } from './service/department.service';
 import { DepartmentModel } from './model/department.model';
 import { AddDepartmentComponent } from './partials/add-department/add-department.component';
@@ -21,10 +23,13 @@ export class DepartmentComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  dataSourceLength: number;
 
   constructor(
     private dialog: MatDialog,
     private departmentService: DepartmentService,
+    private utilService: UtilService,
+    private errorService: ErrorService,
   ) {
     this.dataSource = new MatTableDataSource();
   }
@@ -55,8 +60,19 @@ export class DepartmentComponent implements OnInit, AfterViewInit {
   }
 
   getDepartments() {
-    this.departmentService.getList().subscribe((res: any) => {});
+    this.departmentService.getList().subscribe(
+      (res: any) => {
+        this.dataSource = res;
+        this.dataSourceLength = res.length;
+      },
+      (error) => {
+        this.utilService.showFailToast(this.errorService.getErrors(error));
+        console.log(this.errorService.getErrors(error));
+      },
+    );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getDepartments();
+  }
 }
