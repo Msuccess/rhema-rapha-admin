@@ -67,8 +67,8 @@ export class DoctorComponent implements OnInit, AfterViewInit {
     getDoctors() {
         this.patientService.getList().subscribe(
             (res: any) => {
-                this.dataSource = new MatTableDataSource(res.data);
-                this.dataSourceLength = res.data.length;
+                this.dataSource = new MatTableDataSource(res);
+                this.dataSourceLength = res.length;
             },
             (error) => {
                 this.utilService.showFailToast(

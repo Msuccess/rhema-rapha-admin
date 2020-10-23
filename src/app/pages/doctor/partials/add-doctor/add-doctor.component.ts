@@ -1,3 +1,4 @@
+import { DepartmentService } from './../../../department/service/department.service';
 import { DepartmentModel } from './../../../department/model/department.model';
 import { UtilService } from './../../../../core/services/util.service';
 import { DoctorService } from './../../service/doctor.service';
@@ -28,8 +29,22 @@ export class AddDoctorComponent implements OnInit {
         private utilService: UtilService,
         private doctorService: DoctorService,
         public dialogRef: MatDialogRef<AddDoctorComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: DoctorModel
+        @Inject(MAT_DIALOG_DATA) public data: DoctorModel,
+        private departmentService: DepartmentService
     ) {}
+
+    getDepartments() {
+        this.departmentService.getList().subscribe(
+            (res: any) => {
+                this.departments = res;
+            },
+            (error) => {
+                this.utilService.showFailToast(
+                    this.errorService.getErrors(error)
+                );
+            }
+        );
+    }
 
     initDoctorForm() {
         this.doctorForm = this.fb.group({
@@ -149,6 +164,7 @@ export class AddDoctorComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.getDepartments();
         this.initDoctorForm();
         if (this.data) {
             this.updating$.next(true);
