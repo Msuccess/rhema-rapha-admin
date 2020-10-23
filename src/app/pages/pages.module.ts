@@ -12,6 +12,7 @@ import { AddAppointmentComponent } from './appointment/partials/add-appointment/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddPatientComponent } from './patient/partials/add-patient/add-patient.component';
 import { AvatarModule } from 'ngx-avatar';
+import { AddDoctorComponent } from './doctor/partials/add-doctor/add-doctor.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { AvatarModule } from 'ngx-avatar';
         AddAppointmentComponent,
         AddDepartmentComponent,
         AddPatientComponent,
+        AddDoctorComponent,
     ],
     imports: [
         CommonModule,
@@ -34,6 +36,7 @@ import { AvatarModule } from 'ngx-avatar';
         AddAppointmentComponent,
         AddDepartmentComponent,
         AddPatientComponent,
+        AddDoctorComponent,
     ],
 })
 export class PagesModule {}

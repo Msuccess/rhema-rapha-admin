@@ -1,81 +1,84 @@
-import { PatientService } from './../../service/patient.service';
+import { DepartmentModel } from './../../../department/model/department.model';
 import { UtilService } from './../../../../core/services/util.service';
+import { DoctorService } from './../../service/doctor.service';
 import { ErrorService } from './../../../../core/services/error.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { PatientModel } from '../../model/patient.model';
+import { DoctorModel } from '../../model/doctor.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-    selector: 'app-add-patient',
-    templateUrl: './add-patient.component.html',
-    styleUrls: ['./add-patient.component.scss'],
+    selector: 'app-add-doctor',
+    templateUrl: './add-doctor.component.html',
+    styleUrls: ['./add-doctor.component.scss'],
 })
-export class AddPatientComponent implements OnInit {
-    patientForm: FormGroup;
+export class AddDoctorComponent implements OnInit {
+    doctorForm: FormGroup;
     loading = new BehaviorSubject<boolean>(false);
     errors = new BehaviorSubject<string>('');
     hasFormErrors = false;
-    patient = {} as PatientModel;
+    departments = [];
+    doctor = {} as DoctorModel;
     updating$ = new BehaviorSubject<boolean>(false);
-    genders = ['Male', 'Female', 'Others'];
-    minDate: Date;
 
     constructor(
         private fb: FormBuilder,
         private errorService: ErrorService,
         private utilService: UtilService,
-        private patientService: PatientService,
-        public dialogRef: MatDialogRef<AddPatientComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: PatientModel
-    ) {
-        this.minDate = new Date();
-    }
+        private doctorService: DoctorService,
+        public dialogRef: MatDialogRef<AddDoctorComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: DoctorModel
+    ) {}
 
-    initPatientForm() {
-        this.patientForm = this.fb.group({
+    initDoctorForm() {
+        this.doctorForm = this.fb.group({
             fullName: [
-                this.patient.fullName,
+                this.doctor.fullName,
                 Validators.compose([Validators.required]),
             ],
             email: [
-                this.patient.email,
+                this.doctor.email,
                 Validators.compose([Validators.required, Validators.email]),
             ],
             phonenumber: [
-                this.patient.phonenumber,
+                this.doctor.phonenumber,
                 Validators.compose([Validators.required]),
             ],
-            gender: [this.patient.gender],
             password: [
-                this.patient.password,
+                this.doctor.password,
                 Validators.compose([
                     Validators.required,
                     Validators.minLength(8),
                 ]),
             ],
-            bloodPressure: [this.patient.bloodPressure],
-            height: [this.patient.height],
-            address: [this.patient.address],
-            dateOfBirth: [
-                this.patient.dateOfBirth,
+            daysAvailable: [
+                this.doctor.daysAvailable,
                 Validators.compose([Validators.required]),
             ],
-            bloodType: [this.patient.bloodType],
-            role: ['patient'],
+            timesAvailable: [
+                this.doctor.timesAvailable,
+                Validators.compose([Validators.required]),
+            ],
+            departmentId: [
+                this.doctor.departmentId,
+                Validators.compose([Validators.required]),
+            ],
+            address: [this.doctor.address],
+
+            role: ['doctor'],
         });
     }
 
-    updatePatient() {
-        this.patientService
-            .update(this.data.id, this.patientForm.value)
+    updateDoctor() {
+        this.doctorService
+            .update(this.data.id, this.doctorForm.value)
             .subscribe(
                 (res) => {
                     this.dialogRef.close(true);
                     this.loading.next(false);
                     this.utilService.showSuccessToast(
-                        'Patient Updated Successfully'
+                        'Doctor Updated Successfully'
                     );
                     console.log(res);
                 },
@@ -89,12 +92,12 @@ export class AddPatientComponent implements OnInit {
             );
     }
 
-    addPatient() {
-        this.patientService.createPatient(this.patientForm.value).subscribe(
+    addDoctor() {
+        this.doctorService.createDoctor(this.doctorForm.value).subscribe(
             (res) => {
                 this.dialogRef.close(true);
                 this.loading.next(false);
-                this.utilService.showSuccessToast('Patient Added Successfully');
+                this.utilService.showSuccessToast('Doctor Added Successfully');
                 console.log(res);
             },
             (err) => {
@@ -111,9 +114,9 @@ export class AddPatientComponent implements OnInit {
      * Form Submit
      */
     submit() {
-        const controls = this.patientForm.controls;
+        const controls = this.doctorForm.controls;
         /** check form */
-        if (this.patientForm.invalid) {
+        if (this.doctorForm.invalid) {
             Object.keys(controls).forEach((controlName) =>
                 controls[controlName].markAsTouched()
             );
@@ -121,10 +124,10 @@ export class AddPatientComponent implements OnInit {
         }
         if (this.data) {
             this.loading.next(true);
-            this.updatePatient();
+            this.updateDoctor();
         } else {
             this.loading.next(true);
-            this.addPatient();
+            this.addDoctor();
         }
     }
 
@@ -134,7 +137,7 @@ export class AddPatientComponent implements OnInit {
     }
 
     isControlHasError(controlName: string, validationType: string): boolean {
-        const control = this.patientForm.controls[controlName];
+        const control = this.doctorForm.controls[controlName];
         if (!control) {
             return false;
         }
@@ -146,11 +149,11 @@ export class AddPatientComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.initPatientForm();
+        this.initDoctorForm();
         if (this.data) {
             this.updating$.next(true);
             console.log('>>>>>>>>>>>GGGGGG>', this.data);
-            this.patientForm.patchValue(this.data);
+            this.doctorForm.patchValue(this.data);
         }
     }
 }
