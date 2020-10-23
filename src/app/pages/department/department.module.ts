@@ -5,8 +5,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DepartmentComponent } from './department.component';
+import { AvatarModule } from 'ngx-avatar';
 
-const routes: Routes = [{ path: '', component: DepartmentComponent }];
+const routes: Routes = [
+  { path: '', component: DepartmentComponent },
+  {
+    path: ':id',
+    component: ViewDepartmentComponent,
+  },
+];
 
 @NgModule({
   declarations: [DepartmentComponent, ViewDepartmentComponent],

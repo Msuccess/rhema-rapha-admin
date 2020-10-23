@@ -10,12 +10,7 @@ import { AvatarModule } from 'ngx-avatar';
 const routes: Routes = [{ path: '', component: DoctorComponent }];
 
 @NgModule({
-    declarations: [DoctorComponent, ViewDoctorComponent],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        MaterialModule,
-        AvatarModule,
-    ],
+  declarations: [DoctorComponent, ViewDoctorComponent],
+  imports: [CommonModule, RouterModule.forChild(routes), MaterialModule],
 })
 export class DoctorModule {}

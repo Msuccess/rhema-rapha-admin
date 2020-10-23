@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
-    MatDialogModule,
-    MatDialogRef,
-    MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -19,47 +19,50 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { ToastrModule } from 'ngx-toastr';
+import { AvatarModule } from 'ngx-avatar';
 @NgModule({
-    declarations: [],
-    imports: [
-        CommonModule,
-        MatDialogModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatDatepickerModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatSnackBarModule,
-        MatSelectModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatMenuModule,
-        MatIconModule,
-        ToastrModule.forRoot(),
-    ],
-    exports: [
-        MatDialogModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatDatepickerModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatSnackBarModule,
-        MatSelectModule,
-        MatTableModule,
-        MatPaginatorModule,
-        ToastrModule,
-        MatIconModule,
-        MatMenuModule,
-    ],
+  declarations: [],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatMenuModule,
+    MatIconModule,
+    ToastrModule.forRoot(),
+    AvatarModule,
+  ],
+  exports: [
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    MatTableModule,
+    MatPaginatorModule,
+    ToastrModule,
+    MatIconModule,
+    MatMenuModule,
+    AvatarModule,
+  ],
 
-    providers: [
-        MatDatepickerModule,
-        MatSnackBar,
-        { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: {} },
-    ],
+  providers: [
+    MatDatepickerModule,
+    MatSnackBar,
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+  ],
 })
 export class MaterialModule {}
