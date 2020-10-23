@@ -26,7 +26,9 @@ export class AddDepartmentComponent implements OnInit {
     private departmentService: DepartmentService,
     public dialogRef: MatDialogRef<AddDepartmentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DepartmentModel,
-  ) {}
+  ) {
+    
+  }
 
   initDepartmentForm() {
     this.departmentForm = this.fb.group({
