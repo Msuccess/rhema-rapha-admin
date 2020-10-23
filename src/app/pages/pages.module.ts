@@ -10,23 +10,30 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddAppointmentComponent } from './appointment/partials/add-appointment/add-appointment.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddPatientComponent } from './patient/partials/add-patient/add-patient.component';
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    AddAppointmentComponent,
-    AddDepartmentComponent,
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    UIModule,
-    WidgetModule,
-    PagesRoutingModule,
-    MaterialModule,
-    NgbModule,
-  ],
-  entryComponents: [AddAppointmentComponent, AddDepartmentComponent],
+    declarations: [
+        DashboardComponent,
+        AddAppointmentComponent,
+        AddDepartmentComponent,
+        AddPatientComponent,
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        UIModule,
+        WidgetModule,
+        PagesRoutingModule,
+        MaterialModule,
+        NgbModule,
+    ],
+    entryComponents: [
+        AddAppointmentComponent,
+        AddDepartmentComponent,
+        AddPatientComponent,
+    ],
 })
 export class PagesModule {}

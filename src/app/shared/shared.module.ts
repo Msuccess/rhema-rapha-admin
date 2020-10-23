@@ -6,9 +6,9 @@ import { ActionNotificationComponent } from './action-notification/action-notifi
 import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
-  declarations: [ActionNotificationComponent, LoaderComponent],
-  exports: [NgbModule, MatProgressBarModule, LoaderComponent],
-  imports: [CommonModule, NgbModule, MatProgressBarModule],
-  entryComponents: [ActionNotificationComponent],
+    declarations: [ActionNotificationComponent, LoaderComponent],
+    exports: [NgbModule, MatProgressBarModule, LoaderComponent],
+    imports: [CommonModule, NgbModule, MatProgressBarModule],
+    entryComponents: [ActionNotificationComponent],
 })
 export class SharedModule {}

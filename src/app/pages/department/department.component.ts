@@ -35,8 +35,10 @@ export class DepartmentComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        if (this.dataSource) {
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+        }
     }
 
     applyFilter(event: Event) {
@@ -64,7 +66,7 @@ export class DepartmentComponent implements OnInit, AfterViewInit {
     getDepartments() {
         this.departmentService.getList().subscribe(
             (res: any) => {
-                this.dataSource = res;
+                this.dataSource = new MatTableDataSource(res);
                 this.dataSourceLength = res.length;
             },
             (error) => {

@@ -1,57 +1,75 @@
+import { PatientService } from './../../service/patient.service';
 import { UtilService } from './../../../../core/services/util.service';
-import { DepartmentModel } from './../../model/department.model';
-import { DepartmentService } from './../../service/department.service';
 import { ErrorService } from './../../../../core/services/error.service';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    Inject,
-    OnChanges,
-    OnInit,
-    SimpleChanges,
-} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import { PatientModel } from '../../model/patient.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-    selector: 'app-add-department',
-    templateUrl: './add-department.component.html',
-    styleUrls: ['./add-department.component.scss'],
+    selector: 'app-add-patient',
+    templateUrl: './add-patient.component.html',
+    styleUrls: ['./add-patient.component.scss'],
 })
-export class AddDepartmentComponent implements OnInit {
-    departmentForm: FormGroup;
+export class AddPatientComponent implements OnInit {
+    patientForm: FormGroup;
     loading = new BehaviorSubject<boolean>(false);
     errors = new BehaviorSubject<string>('');
     hasFormErrors = false;
-    department = {} as DepartmentModel;
+    patient = {} as PatientModel;
     updating$ = new BehaviorSubject<boolean>(false);
+    genders = ['Male', 'Female', 'Others'];
+    minDate: Date;
 
     constructor(
         private fb: FormBuilder,
         private errorService: ErrorService,
         private utilService: UtilService,
-        private departmentService: DepartmentService,
-        public dialogRef: MatDialogRef<AddDepartmentComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: DepartmentModel
-    ) {}
+        private patientService: PatientService,
+        public dialogRef: MatDialogRef<AddPatientComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: PatientModel
+    ) {
+        this.minDate = new Date();
+    }
 
-    initDepartmentForm() {
-        this.departmentForm = this.fb.group({
-            description: [
-                this.department.description,
+    initPatientForm() {
+        this.patientForm = this.fb.group({
+            fullName: [
+                this.patient.fullName,
                 Validators.compose([Validators.required]),
             ],
-            name: [
-                this.department.name,
+            email: [
+                this.patient.email,
+                Validators.compose([Validators.required, Validators.email]),
+            ],
+            phonenumber: [
+                this.patient.phonenumber,
                 Validators.compose([Validators.required]),
             ],
+            gender: [this.patient.gender],
+            password: [
+                this.patient.password,
+                Validators.compose([
+                    Validators.required,
+                    Validators.minLength(8),
+                ]),
+            ],
+            bloodPressure: [this.patient.bloodPressure],
+            height: [this.patient.height],
+            address: [this.patient.phonenumber],
+            dateOfBirth: [
+                this.patient.phonenumber,
+                Validators.compose([Validators.required]),
+            ],
+            bloodType: [this.patient.bloodType],
+            role: ['patient'],
         });
     }
 
     updateDepartment() {
-        this.departmentService
-            .update(this.data.id, this.departmentForm.value)
+        this.patientService
+            .update(this.data.id, this.patientForm.value)
             .subscribe(
                 (res) => {
                     this.dialogRef.close(true);
@@ -72,7 +90,7 @@ export class AddDepartmentComponent implements OnInit {
     }
 
     addDepartment() {
-        this.departmentService.create(this.departmentForm.value).subscribe(
+        this.patientService.createPatient(this.patientForm.value).subscribe(
             (res) => {
                 this.dialogRef.close(true);
                 this.loading.next(false);
@@ -95,18 +113,19 @@ export class AddDepartmentComponent implements OnInit {
      * Form Submit
      */
     submit() {
-        this.loading.next(true);
-        const controls = this.departmentForm.controls;
+        const controls = this.patientForm.controls;
         /** check form */
-        if (this.departmentForm.invalid) {
+        if (this.patientForm.invalid) {
             Object.keys(controls).forEach((controlName) =>
                 controls[controlName].markAsTouched()
             );
             return;
         }
         if (this.data) {
+            this.loading.next(true);
             this.updateDepartment();
         } else {
+            this.loading.next(true);
             this.addDepartment();
         }
     }
@@ -117,7 +136,7 @@ export class AddDepartmentComponent implements OnInit {
     }
 
     isControlHasError(controlName: string, validationType: string): boolean {
-        const control = this.departmentForm.controls[controlName];
+        const control = this.patientForm.controls[controlName];
         if (!control) {
             return false;
         }
@@ -129,11 +148,11 @@ export class AddDepartmentComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.initDepartmentForm();
+        this.initPatientForm();
         if (this.data) {
             this.updating$.next(true);
             console.log('>>>>>>>>>>>GGGGGG>', this.data);
-            this.departmentForm.patchValue(this.data);
+            this.patientForm.patchValue(this.data);
         }
     }
 }

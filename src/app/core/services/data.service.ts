@@ -49,7 +49,6 @@ export class DataService<T> {
     }
 
     public update(id: string, data: T): Observable<any> {
-        debugger;
         return this.httpClient
             .put<T>(`${this.baseEndPoint}${this.endPoint}/${id}/`, data)
             .pipe(
