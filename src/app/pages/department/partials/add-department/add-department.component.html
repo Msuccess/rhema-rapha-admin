@@ -8,7 +8,7 @@
 
     <form [formGroup]="departmentForm">
       <div *ngIf="hasFormErrors">
-        <ngb-alert type="danger" (close)="close()">
+        <ngb-alert type="danger" (close)="close($event)">
           <span class="font-weight-bold">{{ errors | async  }}
           </span>
         </ngb-alert>
