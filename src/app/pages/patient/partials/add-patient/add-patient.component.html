@@ -1,0 +1,127 @@
+<div class="dialog-content-wrapper">
+
+  <h2 mat-dialog-title>
+    <span *ngIf="updating$ | async">Update Patient</span>
+    <span *ngIf="!(updating$ | async)">Add Patient</span>
+  </h2>
+  <div mat-dialog-content class="mat-typography">
+
+    <form [formGroup]="patientForm">
+      <div *ngIf="hasFormErrors">
+        <ngb-alert type="danger" (close)="close()">
+          <span class="font-weight-bold">{{ errors | async  }}
+          </span>
+        </ngb-alert>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Full Name</mat-label>
+          <input matInput type="text" placeholder="Full Name" formControlName="fullName" />
+          <mat-error *ngIf="isControlHasError('fullName','required')">
+            <strong>Full Name required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" placeholder="Email" formControlName="email" autocomplete="off" />
+          <mat-error *ngIf="isControlHasError('email','required')">
+            <strong>Email required</strong>
+          </mat-error>
+          <mat-error *ngIf="isControlHasError('email','email')">
+            <strong>Email invalid</strong>
+          </mat-error>
+
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Phone Number</mat-label>
+          <input matInput type="text" placeholder="Phone Number" formControlName="phonenumber" />
+          <mat-error *ngIf="isControlHasError('phonenumber','required')">
+            <strong>Phone Number required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option *ngFor="let c of genders" value="c">
+              {{c}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group" *ngIf="!(updating$ | async)">
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" placeholder="Password" formControlName="password" />
+          <mat-error *ngIf="isControlHasError('password','required')">
+            <strong>Password required</strong>
+          </mat-error>
+          <mat-error *ngIf="isControlHasError('password','minLength')">
+            <strong>Password required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Date Of Birth</mat-label>
+          <input matInput [min]="minDate" [matDatepicker]="picker" (click)="picker.open()"
+            formControlName="dateOfBirth">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="isControlHasError('dateOfBirth','required')">
+            <strong>Date Of Birth required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Blood Pressure</mat-label>
+          <input matInput type="text" placeholder="Blood Pressure" formControlName="bloodPressure" />
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Height</mat-label>
+          <input matInput type="text" placeholder="Height" formControlName="height" />
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Address</mat-label>
+          <input matInput type="text" placeholder="Address" formControlName="address" />
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>BloodType</mat-label>
+          <input matInput type="text" placeholder="BloodType" formControlName="bloodType" />
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions class="mb-1">
+    <button mat-button cdkFocusInitial class="btn btn-primary" (click)="submit()">
+      <span *ngIf="!(loading|async)">Submit</span>
+      <div class="spinner-border text-light" role="status" *ngIf="(loading|async)">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </button> &nbsp; &nbsp;
+    <button mat-dialog-close class="btn btn-danger">Cancel</button>
+  </div>
+
+</div>
