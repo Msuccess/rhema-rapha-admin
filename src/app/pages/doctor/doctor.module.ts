@@ -7,10 +7,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { ViewDoctorComponent } from './partials/view-doctor/view-doctor.component';
 import { AvatarModule } from 'ngx-avatar';
 
-const routes: Routes = [{ path: '', component: DoctorComponent }];
+const routes: Routes = [
+    { path: '', component: DoctorComponent },
+    { path: ':id', component: ViewDoctorComponent },
+];
 
 @NgModule({
-  declarations: [DoctorComponent, ViewDoctorComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), MaterialModule],
+    declarations: [DoctorComponent, ViewDoctorComponent],
+    imports: [CommonModule, RouterModule.forChild(routes), MaterialModule],
 })
 export class DoctorModule {}

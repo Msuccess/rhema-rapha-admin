@@ -75,21 +75,36 @@
         </mat-form-field>
       </div>
 
+
       <div class="form-group">
         <mat-form-field appearance="outline">
           <mat-label>Days Available</mat-label>
-          <input matInput type="text" placeholder="Days Available" formControlName="daysAvailable" />
-          <mat-hint>Separate days with comma (,)</mat-hint>
+          <mat-select formControlName="daysAvailable" multiple [compareWith]="compareWith">
+            <mat-option *ngFor="let day of days" [value]="day">
+              {{day}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="isControlHasError('appointmentTime','required')">
+            <strong>Appointment Days required</strong>
+          </mat-error>
         </mat-form-field>
       </div>
+
 
       <div class="form-group">
         <mat-form-field appearance="outline">
           <mat-label>Times Available</mat-label>
-          <input matInput type="text" placeholder="Times Available" formControlName="timesAvailable" />
-          <mat-hint>Separate days with comma (,)</mat-hint>
+          <mat-select formControlName="timesAvailable" multiple [compareWith]="compareWith">
+            <mat-option *ngFor="let time of times" [value]="time">
+              {{time}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="isControlHasError('timesAvailable','required')">
+            <strong>Appointment Time required</strong>
+          </mat-error>
         </mat-form-field>
       </div>
+
 
       <div class="form-group">
         <mat-form-field appearance="outline">
