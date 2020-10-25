@@ -27,7 +27,7 @@ export class AddAppointmentComponent implements OnInit {
     doctors = [];
     patients = [];
     appointmentTimes = [];
-    appointmentDays: string[];
+    appointmentDays=[];
 
     constructor(
         private fb: FormBuilder,

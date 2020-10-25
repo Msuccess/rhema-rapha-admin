@@ -22,4 +22,14 @@ export class AppointmentService extends DataService<AppointmentModel> {
             })
         );
     }
+
+    public getDoctorAppointments() {
+        return this.http.get(`${this.baseEndPoint}appointment/doctor`).pipe(
+            map((data: any) => data as AppointmentModel),
+            catchError((err) => {
+                this.handleError([]);
+                return throwError(err);
+            })
+        );
+    }
 }

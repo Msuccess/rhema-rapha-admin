@@ -16,6 +16,7 @@ import { AddDoctorComponent } from './doctor/partials/add-doctor/add-doctor.comp
 import { ProfileComponent } from './profile/profile.component';
 import { SecurityComponent } from './profile/partials/security/security.component';
 import { EditProfileComponent } from './profile/partials/edit-profile/edit-profile.component';
+import { EditDocProfileComponent } from './profile/partials/edit-profile/doctor-edit/edit-doc-profile/edit-doc-profile.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { EditProfileComponent } from './profile/partials/edit-profile/edit-profi
         ProfileComponent,
         SecurityComponent,
         EditProfileComponent,
+        EditDocProfileComponent,
     ],
     imports: [
         CommonModule,

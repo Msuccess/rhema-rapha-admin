@@ -1,3 +1,5 @@
+import { DepartmentModel } from '../../department/model/department.model';
+
 export class DoctorModel {
     id: string;
     email: string;
@@ -9,6 +11,7 @@ export class DoctorModel {
     address: string;
     password: string;
     role: string;
+    department: DepartmentModel;
 
     constructor() {}
 }

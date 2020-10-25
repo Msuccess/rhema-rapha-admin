@@ -33,7 +33,6 @@ export class LeftsidebarComponent implements OnInit {
 
     getUserRole() {
         this.tokenStorage.getUser().subscribe((res) => {
-            console.log('Role', res);
             this.user = res;
         });
     }

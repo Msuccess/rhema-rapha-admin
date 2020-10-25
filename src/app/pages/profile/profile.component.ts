@@ -16,6 +16,9 @@ export class ProfileComponent implements OnInit {
     profileId: string;
     profileDetail = {} as any;
     doctorId: any;
+    userRole: string;
+    timesDoctorAvailable = [];
+    daysDoctorAvailable = [];
 
     constructor(
         private profileService: ProfileService,
@@ -42,6 +45,7 @@ export class ProfileComponent implements OnInit {
 
     getUserId() {
         this.tokenStorage.getUser().subscribe((res) => {
+            this.userRole = res.role;
             if (res.role === 'admin') {
                 this.profileId = res.id;
                 this.profileDetail = res;
@@ -56,6 +60,8 @@ export class ProfileComponent implements OnInit {
     getDoctor() {
         this.doctorService.getById(this.doctorId).subscribe(
             (res: any) => {
+                this.timesDoctorAvailable = res.data.timesAvailable.split(',');
+                this.daysDoctorAvailable = res.data.daysAvailable.split(',');
                 this.profileDetail = res.data;
             },
             (error) => {

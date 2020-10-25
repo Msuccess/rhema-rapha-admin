@@ -13,7 +13,8 @@ import { Location } from '@angular/common';
 })
 export class ViewDoctorComponent implements OnInit {
     doctor = {} as DoctorModel;
-
+    timesDoctorAvailable = [];
+    daysDoctorAvailable = [];
     doctorId: string;
 
     constructor(
@@ -31,6 +32,8 @@ export class ViewDoctorComponent implements OnInit {
     getDoctor() {
         this.doctorService.getById(this.doctorId).subscribe(
             (res: any) => {
+                this.timesDoctorAvailable = res.data.timesAvailable.split(',');
+                this.daysDoctorAvailable = res.data.daysAvailable.split(',');
                 this.doctor = res.data;
             },
             (error) => {

@@ -1,3 +1,4 @@
+import { TokenStorage } from './../../auth/service/token-storage.service';
 import { AppointmentService } from './service/appointment.service';
 import { UtilService } from './../../core/services/util.service';
 import { ErrorService } from './../../core/services/error.service';
@@ -36,13 +37,15 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
     @ViewChild(MatSort, { static: true }) sort: MatSort;
     dataSourceLength: number;
+    userRole: string;
 
     constructor(
         private appointmentService: AppointmentService,
         private utilService: UtilService,
         private errorService: ErrorService,
         private router: Router,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private tokenStorage: TokenStorage
     ) {}
 
     ngAfterViewInit() {
@@ -63,18 +66,40 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
     }
 
     getAppointments() {
-        this.appointmentService.getAll().subscribe(
-            (res: any) => {
-                this.dataSource = new MatTableDataSource(res.data);
-                this.dataSourceLength = res.data.length;
-            },
-            (error) => {
-                this.utilService.showFailToast(
-                    this.errorService.getErrors(error)
+        switch (this.userRole.toLowerCase()) {
+            case 'admin':
+                this.appointmentService.getAll().subscribe(
+                    (res: any) => {
+                        this.dataSource = new MatTableDataSource(res.data);
+                        this.dataSourceLength = res.data.length;
+                    },
+                    (error) => {
+                        this.utilService.showFailToast(
+                            this.errorService.getErrors(error)
+                        );
+                        this.dataSourceLength = 0;
+                    }
                 );
-                this.dataSourceLength = 0;
-            }
-        );
+                break;
+
+            case 'doctor':
+                this.appointmentService.getDoctorAppointments().subscribe(
+                    (res: any) => {
+                        this.dataSource = new MatTableDataSource(res.data);
+                        this.dataSourceLength = res.data.length;
+                    },
+                    (error) => {
+                        this.utilService.showFailToast(
+                            this.errorService.getErrors(error)
+                        );
+                        this.dataSourceLength = 0;
+                    }
+                );
+                break;
+
+            default:
+                return 'No Such Role Available';
+        }
     }
 
     deletePatient(id: string) {
@@ -131,8 +156,15 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
         this.router.navigate(['/appointment/', id]);
     }
 
-    // TODO :GET APPOINTMENT BY DOCTOR
+    getUserRole() {
+        this.tokenStorage.getUser().subscribe((res) => {
+            console.log('Role', res);
+            this.userRole = res.role;
+        });
+    }
+
     ngOnInit() {
+        this.getUserRole();
         this.getAppointments();
     }
 }

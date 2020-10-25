@@ -42,7 +42,6 @@ export class MenuComponent implements OnInit, AfterViewInit, OnChanges {
 
     getUserRole() {
         this.tokenStorage.getUser().subscribe((res) => {
-            console.log('Role', res);
             this.userRole = res.role;
         });
     }
