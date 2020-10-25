@@ -6,71 +6,71 @@ import { Notification } from './topbar.model';
 import { notificationItems } from './data';
 
 @Component({
-  selector: 'app-topbar',
-  templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.scss'],
+    selector: 'app-topbar',
+    templateUrl: './topbar.component.html',
+    styleUrls: ['./topbar.component.scss'],
 })
 export class TopbarComponent implements OnInit {
-  notificationItems: Notification[];
-  languages: Array<{
-    id: number;
-    flag?: string;
-    name: string;
-  }>;
-  selectedLanguage: {
-    id: number;
-    flag?: string;
-    name: string;
-  };
+    notificationItems: Notification[];
+    languages: Array<{
+        id: number;
+        flag?: string;
+        name: string;
+    }>;
+    selectedLanguage: {
+        id: number;
+        flag?: string;
+        name: string;
+    };
 
-  openMobileMenu: boolean;
+    openMobileMenu: boolean;
 
-  @Output() settingsButtonClicked = new EventEmitter();
-  @Output() mobileMenuButtonClicked = new EventEmitter();
+    @Output() settingsButtonClicked = new EventEmitter();
+    @Output() mobileMenuButtonClicked = new EventEmitter();
 
-  constructor(private router: Router, private authService: AuthService) {}
+    constructor(private router: Router, private authService: AuthService) {}
 
-  ngOnInit() {
-    this._fetchNotifications();
-    this.openMobileMenu = false;
-  }
+    ngOnInit() {
+        this._fetchNotifications();
+        this.openMobileMenu = false;
+    }
 
-  /**
-   * Change the language
-   * @param language language
-   */
-  changeLanguage(language) {
-    this.selectedLanguage = language;
-  }
+    /**
+     * Change the language
+     * @param language language
+     */
+    changeLanguage(language) {
+        this.selectedLanguage = language;
+    }
 
-  /**
-   * Toggles the right sidebar
-   */
-  toggleRightSidebar() {
-    this.settingsButtonClicked.emit();
-  }
+    /**
+     * Toggles the right sidebar
+     */
+    toggleRightSidebar() {
+        this.settingsButtonClicked.emit();
+    }
 
-  /**
-   * Toggle the menu bar when having mobile screen
-   */
-  toggleMobileMenu(event: any) {
-    event.preventDefault();
-    this.mobileMenuButtonClicked.emit();
-  }
+    /**
+     * Toggle the menu bar when having mobile screen
+     */
+    toggleMobileMenu(event: any) {
+        event.preventDefault();
+        this.mobileMenuButtonClicked.emit();
+    }
 
-  /**
-   * Logout the user
-   */
-  logout() {
-    this.authService.signOut();
-    this.router.navigate(['/account/login']);
-  }
+    /**
+     * Logout the user
+     */
+    logout() {
+        this.authService.signOut();
+        this.router.navigate(['/auth/login']);
+    }
 
-  /**
-   * Fetches the notification
-   * Note: For now returns the hard coded notifications
-   */
-  _fetchNotifications() {
-    this.notificationItems = notificationItems;
-  }
+    /**
+     * Fetches the notification
+     * Note: For now returns the hard coded notifications
+     */
+    _fetchNotifications() {
+        this.notificationItems = notificationItems;
+    }
 }

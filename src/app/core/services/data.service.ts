@@ -38,7 +38,7 @@ export class DataService<T> {
 
     public create(data: T): Observable<T> {
         return this.httpClient
-            .post<T>(`${this.baseEndPoint}${this.endPoint}/`, data)
+            .post<T>(`${this.baseEndPoint}${this.endPoint}`, data)
             .pipe(
                 map((result) => result as T),
                 catchError((err) => {

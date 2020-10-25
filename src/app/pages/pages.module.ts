@@ -13,6 +13,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddPatientComponent } from './patient/partials/add-patient/add-patient.component';
 import { AvatarModule } from 'ngx-avatar';
 import { AddDoctorComponent } from './doctor/partials/add-doctor/add-doctor.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SecurityComponent } from './profile/partials/security/security.component';
+import { EditProfileComponent } from './profile/partials/edit-profile/edit-profile.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +24,9 @@ import { AddDoctorComponent } from './doctor/partials/add-doctor/add-doctor.comp
         AddDepartmentComponent,
         AddPatientComponent,
         AddDoctorComponent,
+        ProfileComponent,
+        SecurityComponent,
+        EditProfileComponent,
     ],
     imports: [
         CommonModule,

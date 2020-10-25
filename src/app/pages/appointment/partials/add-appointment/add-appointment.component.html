@@ -1,10 +1,14 @@
 <div class="dialog-content-wrapper">
-  <h2 mat-dialog-title>Add Appointment</h2>
+  <h2 mat-dialog-title>
+    <span *ngIf="updating$ | async">Update Appointment</span>
+    <span *ngIf="!(updating$ | async)">Add Appointment</span>
+  </h2>
+
   <div mat-dialog-content class="mat-typography">
 
     <form [formGroup]="appointmentForm">
       <div *ngIf="hasFormErrors">
-        <ngb-alert type="danger" (close)="close()">
+        <ngb-alert type="danger" (close)="close($event)">
           <span class="font-weight-bold">{{ errors | async  }}
           </span>
         </ngb-alert>
@@ -24,8 +28,8 @@
         <mat-form-field appearance="outline">
           <mat-label>Patient</mat-label>
           <mat-select formControlName="patientId">
-            <mat-option *ngFor="let food of foods" [value]="food.value">
-              {{food.viewValue}}
+            <mat-option *ngFor="let patient of patients" [value]="patient.id">
+              {{patient.fullName}}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="isControlHasError('patientId','required')">
@@ -37,9 +41,9 @@
       <div class="form-group">
         <mat-form-field appearance="outline">
           <mat-label>Doctor</mat-label>
-          <mat-select formControlName="doctorId">
-            <mat-option *ngFor="let food of foods" [value]="food.value">
-              {{food.viewValue}}
+          <mat-select formControlName="doctorId" (selectionChange)="selectedDoctor($event)">
+            <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
+              {{doctor.fullName}}
             </mat-option>
           </mat-select>
 
@@ -52,7 +56,8 @@
       <div class="form-group">
         <mat-form-field appearance="outline">
           <mat-label>Date</mat-label>
-          <input matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="date">
+          <input matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="date"
+            [matDatepickerFilter]="myFilter" [min]="minDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <mat-error *ngIf="isControlHasError('date','required')">
@@ -65,8 +70,8 @@
         <mat-form-field appearance="outline">
           <mat-label>Appointment Time</mat-label>
           <mat-select formControlName="appointmentTime">
-            <mat-option *ngFor="let food of foods" [value]="food.value">
-              {{food.viewValue}}
+            <mat-option *ngFor="let time of appointmentTimes" [value]="time">
+              {{time}}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="isControlHasError('appointmentTime','required')">
@@ -92,7 +97,7 @@
     </form>
   </div>
   <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial class="btn btn-primary">
+    <button mat-button cdkFocusInitial class="btn btn-primary" (click)="submit()">
       Submit</button> &nbsp; &nbsp;
     <button mat-dialog-close class="btn btn-danger">Cancel</button>
   </div>

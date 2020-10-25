@@ -1,1 +1,124 @@
-<p>view-appointment works!</p>
+<div class="container-fluid">
+  <div class="row page-title align-items-center">
+    <div class="col-sm-4 col-xl-6">
+      <h4 class="mb-1 mt-0">Appointment Details</h4>
+    </div>
+    <div class="col-sm-8 col-xl-6">
+      <div class="float-sm-right mt-3 mt-sm-0">
+        <a id="add-appointment" class="btn btn-primary" href="javascript:0;" role="button" (click)="goBack()">
+          <i class="uil-arrow-circle-left ml-2"></i> back
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- details-->
+  <div class="row">
+    <div class="col-lg-10">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="mt-0 header-title">Description</h6>
+
+          <div class="text-muted mt-3">
+            <p>{{appointment.description}}</p>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-6">
+                <div class="mt-4">
+                  <p class="mb-2"> Appointment Day</p>
+                  <h5 class="font-size-16">{{appointment.appointmentDay}}</h5>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="mt-4">
+                  <p class="mb-2"> Appointment Time</p>
+                  <h5 class="font-size-16">{{appointment.appointmentTime}}</h5>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="mt-4">
+                  <p class="mb-2"> Appointment Date</p>
+                  <h5 class="font-size-16">{{appointment.date | date}}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end card -->
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-5">
+              <div class="text-muted">
+                <div class="tab-pane show active">
+                  <h5 class="mb-4 pb-1 header-title">Doctor</h5>
+                  <div class="media mb-4 font-size-14">
+                    <div class="mr-3">
+                      <a href="javascript: void(0);">
+                        <ngx-avatar name="{{appointment.doctor?.fullName}}" size="40"></ngx-avatar>
+                      </a>
+                    </div>
+                    <div class="media-body">
+                      <h5 class="mt-0 font-size-15">{{appointment.doctor?.fullName}}</h5>
+                      <h5 class="mt-0 font-size-15">{{appointment.doctor?.email}}</h5>
+                      <p class="text-muted mb-1">
+                        {{appointment.doctor?.phonenumber}}
+                      </p>
+                      <p class="text-muted mb-1">
+                        {{appointment.doctor?.daysAvailable}}
+                      </p>
+                      <p class="text-muted mb-1">
+                        {{appointment.doctor?.address}}
+                      </p>
+                      <p class="text-muted mb-1">
+                        {{appointment.doctor?.timesAvailable}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-5">
+              <div class="text-muted">
+                <div class="tab-pane show active" id="comments">
+                  <h5 class="mb-4 pb-1 header-title">Patient</h5>
+                  <div class="media mb-4 font-size-14">
+                    <div class="mr-3">
+                      <a href="javascript: void(0);">
+                        <ngx-avatar name="{{appointment.patient?.fullName}}" size="40"></ngx-avatar>
+                      </a>
+                    </div>
+                    <div class="media-body">
+                      <h5 class="mt-0 font-size-15">{{appointment.patient?.fullName}}</h5>
+                      <h5 class="mt-0 font-size-15">{{appointment.patient?.email}}</h5>
+                      <h5 class="mt-0 font-size-15">
+                        {{appointment.patient?.phonenumber}}
+                      </h5>
+                      <p class="text-muted mb-1">
+                        {{appointment.patient?.gender}}
+                      </p>
+                      <p class="text-muted mb-1">
+                        {{appointment.patient?.dateOfBirth | date}}
+                      </p>
+                      <p class="text-muted mb-1">
+                        {{appointment.patient?.bloodType}}
+                      </p>
+                      <p class="text-muted mb-1">
+                        {{appointment.patient?.bloodPressure}}
+                      </p>
+                      <p class="text-muted mb-1">
+                        {{appointment.patient?.address}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>

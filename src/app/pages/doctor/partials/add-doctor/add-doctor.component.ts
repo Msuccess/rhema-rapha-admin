@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { DoctorModel } from '../../model/doctor.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { daysList, timesList } from './data';
 
 @Component({
     selector: 'app-add-doctor',
@@ -22,6 +23,8 @@ export class AddDoctorComponent implements OnInit {
     departments = [];
     doctor = {} as DoctorModel;
     updating$ = new BehaviorSubject<boolean>(false);
+    days = daysList;
+    times = timesList;
 
     constructor(
         private fb: FormBuilder,
@@ -130,13 +133,16 @@ export class AddDoctorComponent implements OnInit {
      */
     submit() {
         const controls = this.doctorForm.controls;
-        /** check form */
+
+        // /** check form */
         if (this.doctorForm.invalid) {
             Object.keys(controls).forEach((controlName) =>
                 controls[controlName].markAsTouched()
             );
             return;
         }
+        this.doctorForm.value.daysAvailable = this.doctorForm.value.daysAvailable.toString();
+        this.doctorForm.value.timesAvailable = this.doctorForm.value.timesAvailable.toString();
         if (this.data) {
             this.loading.next(true);
             this.updateDoctor();
@@ -161,6 +167,10 @@ export class AddDoctorComponent implements OnInit {
             control.hasError(validationType) &&
             (control.dirty || control.touched);
         return result;
+    }
+
+    public compareWith(object1: any, object2: any) {
+        return object1 && object2 && object1.label === object2.label;
     }
 
     ngOnInit() {

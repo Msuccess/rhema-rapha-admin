@@ -49,15 +49,9 @@
                 <td mat-cell *matCellDef="let row"> {{row.phonenumber}} </td>
               </ng-container>
 
-              <!-- Name Column -->
               <ng-container matColumnDef="timesAvailable">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Times Available </th>
                 <td mat-cell *matCellDef="let row"> {{row.timesAvailable}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="daysAvailable">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Days Available </th>
-                <td mat-cell *matCellDef="let row"> {{row.daysAvailable}} </td>
               </ng-container>
 
 
@@ -72,7 +66,7 @@
                       <mat-icon>delete</mat-icon>
                       <span>Delete</span>
                     </button>
-                    <button mat-menu-item (click)="viewDoctor()">
+                    <button mat-menu-item (click)="viewDoctor(row.id)">
                       <mat-icon>adjust</mat-icon>
                       <span>View</span>
                     </button>
