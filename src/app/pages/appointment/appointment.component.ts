@@ -131,6 +131,7 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
         this.router.navigate(['/appointment/', id]);
     }
 
+    // TODO :GET APPOINTMENT BY DOCTOR
     ngOnInit() {
         this.getAppointments();
     }
