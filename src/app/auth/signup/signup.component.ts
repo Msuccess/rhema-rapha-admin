@@ -97,7 +97,6 @@ export class SignupComponent implements OnInit, OnDestroy {
             this.hasFormErrors = true;
             return;
         }
-        this.registerForm.value.password2 = this.registerForm.value.password1;
 
         this.auth.signUp(this.registerForm.value).subscribe(
             (res) => {

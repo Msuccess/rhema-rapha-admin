@@ -1,6 +1,9 @@
 <div class="dialog-content-wrapper">
-  <span *ngIf="updating$ | async">Update Appointment</span>
-  <span *ngIf="!(updating$ | async)">Add Appointment</span>
+  <h2 mat-dialog-title>
+    <span *ngIf="updating$ | async">Update Appointment</span>
+    <span *ngIf="!(updating$ | async)">Add Appointment</span>
+  </h2>
+
   <div mat-dialog-content class="mat-typography">
 
     <form [formGroup]="appointmentForm">
@@ -54,9 +57,9 @@
         <mat-form-field appearance="outline">
           <mat-label>Date</mat-label>
           <input matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="date"
-            [matDatepickerFilter]="myFilter">
+            [matDatepickerFilter]="myFilter" [min]="minDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+          <mat-datepicker #picker></mat-datepicker>
           <mat-error *ngIf="isControlHasError('date','required')">
             <strong>Date required</strong>
           </mat-error>
@@ -94,7 +97,7 @@
     </form>
   </div>
   <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial class="btn btn-primary">
+    <button mat-button cdkFocusInitial class="btn btn-primary" (click)="submit()">
       Submit</button> &nbsp; &nbsp;
     <button mat-dialog-close class="btn btn-danger">Cancel</button>
   </div>

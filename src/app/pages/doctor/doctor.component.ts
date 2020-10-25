@@ -56,6 +56,7 @@ export class DoctorComponent implements OnInit, AfterViewInit {
         const dialogRef = this.dialog.open(AddDoctorComponent, {
             maxWidth: '500px',
             width: '500px',
+            disableClose: true,
         });
 
         dialogRef.afterClosed().subscribe((result) => {
@@ -108,6 +109,7 @@ export class DoctorComponent implements OnInit, AfterViewInit {
             maxWidth: '500px',
             width: '500px',
             data: doctor,
+            disableClose: true,
         });
 
         dialogRef.afterClosed().subscribe((result) => {

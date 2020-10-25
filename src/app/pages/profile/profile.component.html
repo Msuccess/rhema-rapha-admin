@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row page-title align-items-center">
+    <div class="col-sm-4 col-xl-6">
+      <h4 class="mb-1 mt-0">Profile</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <ng-template [ngTemplateOutlet]="ProfileData"></ng-template>
+    </div>
+    <div class="col-lg-9">
+      <div class="card">
+        <div class="card-body">
+          <mat-tab-group mat-align-tabs="start">
+            <mat-tab label="Edit Profile">
+              <app-edit-profile [profileData]="profileDetail"></app-edit-profile>
+            </mat-tab>
+            <mat-tab label="Change Password">
+              <app-security></app-security>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Profile data -->
+<ng-template #ProfileData>
+  <div class="card">
+    <div class="card-body">
+      <div class="text-center mt-3">
+        <div class="d-flex justify-content-center">
+          <ngx-avatar name="{{profileDetail.fullName}}" size="80"></ngx-avatar>
+        </div>
+        <h5 class="mt-2 mb-1">{{profileDetail.fullName}}</h5>
+        <h6 class="text-muted font-weight-normal mt-2 mb-1">{{profileDetail.email}}
+        </h6>
+        <h6 class="text-muted font-weight-normal mt-1 mb-4">{{profileDetail.phonenumber}}</h6>
+      </div>
+
+    </div>
+  </div>
+</ng-template>

@@ -102,10 +102,13 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
         const dialogRef = this.dialog.open(AddAppointmentComponent, {
             maxWidth: '500px',
             width: '500px',
+            disableClose: true,
         });
 
         dialogRef.afterClosed().subscribe((result) => {
-            console.log(`Dialog result: ${result}`);
+            if (result) {
+                this.getAppointments();
+            }
         });
     }
 
@@ -114,6 +117,7 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
             maxWidth: '500px',
             width: '500px',
             data: appointment,
+            disableClose: true,
         });
 
         dialogRef.afterClosed().subscribe((result) => {
