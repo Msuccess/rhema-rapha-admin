@@ -82,7 +82,13 @@
             <div class="col-lg-5">
               <div class="text-muted">
                 <div class="tab-pane show active" id="comments">
-                  <h5 class="mb-4 pb-1 header-title">Patient</h5>
+                  <div class="header-title d-flex justify-content-between">
+                    <h5 class="mb-4 pb-1 ">Patient</h5>
+                    <a class="h6 mt-3 text-success" routerLink="/patient/{{appointment.patient?.id}}"
+                      routerLinkActive="router-link-active">View more
+                      >></a>
+                  </div>
+
                   <div class="media mb-4 font-size-14">
                     <div class="mr-3">
                       <a href="javascript: void(0);">
@@ -112,6 +118,7 @@
                       </p>
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>

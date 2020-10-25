@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileService } from './service/profile.service';
 import { Router } from '@angular/router';
 import { ProfileModel } from './model/profile.model';
+import { DoctorService } from '../doctor/service/doctor.service';
 
 @Component({
     selector: 'app-profile',
@@ -13,14 +14,16 @@ import { ProfileModel } from './model/profile.model';
 })
 export class ProfileComponent implements OnInit {
     profileId: string;
-    profileDetail = {} as ProfileModel;
+    profileDetail = {} as any;
+    doctorId: any;
 
     constructor(
         private profileService: ProfileService,
         private utilService: UtilService,
         private errorService: ErrorService,
         private router: Router,
-        private tokenStorage: TokenStorage
+        private tokenStorage: TokenStorage,
+        private doctorService: DoctorService
     ) {}
 
     getProfile() {
@@ -39,11 +42,28 @@ export class ProfileComponent implements OnInit {
 
     getUserId() {
         this.tokenStorage.getUser().subscribe((res) => {
-            this.profileId = res.id;
-            this.profileDetail = res;
-            // this.getProfile();
-            console.log('object', res);
+            if (res.role === 'admin') {
+                this.profileId = res.id;
+                this.profileDetail = res;
+                // this.getProfile();
+            } else {
+                this.doctorId = res.email;
+                this.getDoctor();
+            }
         });
+    }
+
+    getDoctor() {
+        this.doctorService.getById(this.doctorId).subscribe(
+            (res: any) => {
+                this.profileDetail = res.data;
+            },
+            (error) => {
+                this.utilService.showFailToast(
+                    this.errorService.getErrors(error)
+                );
+            }
+        );
     }
 
     ngOnInit() {
