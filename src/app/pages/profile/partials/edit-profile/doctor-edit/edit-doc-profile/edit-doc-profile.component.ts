@@ -1,13 +1,15 @@
+import { TokenStorage } from './../../../../../../auth/service/token-storage.service';
+import {
+    timesList,
+    daysList,
+} from './../../../../../doctor/partials/add-doctor/data';
 import { ProfileModel } from './../../../../model/profile.model';
 import { AddDoctorComponent } from './../../../../../doctor/partials/add-doctor/add-doctor.component';
 import { DepartmentService } from './../../../../../department/service/department.service';
 import { DoctorService } from './../../../../../doctor/service/doctor.service';
 import { UtilService } from './../../../../../../core/services/util.service';
 import { ErrorService } from './../../../../../../core/services/error.service';
-import {
-    daysList,
-    timesList,
-} from './../../../../../doctor/partials/add-doctor/data';
+
 import { DoctorModel } from './../../../../../doctor/model/doctor.model';
 import { Component, Inject, OnChanges, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -25,11 +27,12 @@ export class EditDocProfileComponent implements OnInit, OnChanges {
     errors = new BehaviorSubject<string>('');
     hasFormErrors = false;
     departments = [];
-    doctor = {} as DoctorModel;
+    doctor = {} as any;
     updating$ = new BehaviorSubject<boolean>(false);
-    days = daysList;
-    times = timesList;
+    days = [];
+    times = [];
     profileId: any;
+
     @Input() profileData: DoctorModel;
 
     constructor(
@@ -37,24 +40,11 @@ export class EditDocProfileComponent implements OnInit, OnChanges {
         private errorService: ErrorService,
         private utilService: UtilService,
         private doctorService: DoctorService,
+        private tokenStorage: TokenStorage,
         public dialogRef: MatDialogRef<AddDoctorComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DoctorModel,
         private departmentService: DepartmentService
     ) {}
-
-    getDepartments() {
-        this.departmentService.getList().subscribe(
-            (res: any) => {
-                console.log('object', res);
-                this.departments = res;
-            },
-            (error) => {
-                this.utilService.showFailToast(
-                    this.errorService.getErrors(error)
-                );
-            }
-        );
-    }
 
     initDoctorForm() {
         this.doctorForm = this.fb.group({
@@ -70,13 +60,7 @@ export class EditDocProfileComponent implements OnInit, OnChanges {
                 this.doctor.phonenumber,
                 Validators.compose([Validators.required]),
             ],
-            password: [
-                this.doctor.password,
-                Validators.compose([
-                    Validators.required,
-                    Validators.minLength(8),
-                ]),
-            ],
+            password: [this.doctor.password],
             daysAvailable: [
                 this.doctor.daysAvailable,
                 Validators.compose([Validators.required]),
@@ -85,10 +69,7 @@ export class EditDocProfileComponent implements OnInit, OnChanges {
                 this.doctor.timesAvailable,
                 Validators.compose([Validators.required]),
             ],
-            departmentId: [
-                this.doctor.departmentId,
-                Validators.compose([Validators.required]),
-            ],
+            departmentId: [this.doctor.departmentId],
             address: [this.doctor.address],
 
             role: ['doctor'],
@@ -114,19 +95,17 @@ export class EditDocProfileComponent implements OnInit, OnChanges {
             .update(this.profileId, this.doctorForm.value)
             .subscribe(
                 (res) => {
-                    this.dialogRef.close(true);
+                    this.getDoctor();
                     this.loading.next(false);
                     this.utilService.showSuccessToast(
                         'Doctor Updated Successfully'
                     );
-                    console.log(res);
                 },
                 (err) => {
                     this.loading.next(false);
                     this.hasFormErrors = true;
 
                     this.errors.next(this.errorService.getErrors(err));
-                    console.log(this.errors.getValue());
                 }
             );
     }
@@ -149,20 +128,64 @@ export class EditDocProfileComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        this.days = daysList;
+        this.times = timesList;
         this.initDoctorForm();
 
-        if (changes.profileData.currentValue) {
-            console.log('chal', changes.profileData.currentValue);
+        if (changes && changes.profileData.currentValue.length !== 0) {
             this.profileId = changes.profileData.currentValue.id;
-            this.doctorForm.patchValue(changes.profileData.currentValue);
+
+            const updateData = changes.profileData.currentValue;
+
+            updateData.daysAvailable = this.spiltDates(
+                changes.profileData.currentValue.daysAvailable
+            );
+
+            updateData.timesAvailable = this.spiltDates(
+                changes.profileData.currentValue.timesAvailable
+            );
+
+            this.doctorForm.patchValue(updateData);
+        }
+    }
+
+    spiltDates(date: string) {
+        if (date) {
+            return date.split(',');
         }
     }
 
     public compareWith(object1: any, object2: any) {
-        return object1 && object2 && object1.label === object2.label;
+        return object1 && object2 && object1 === object2;
     }
 
-    ngOnInit() {
-        this.getDepartments();
+    getDoctor() {
+        this.doctorService.getDoctorWithUserId().subscribe(
+            (res: any) => {
+                this.tokenStorage.storedUserState$.next(res.data);
+                this.getStoredUser(res.data);
+            },
+            (error) => {
+                this.utilService.showFailToast(
+                    this.errorService.getErrors(error)
+                );
+            }
+        );
     }
+
+    getStoredUser(data: any) {
+        this.tokenStorage.getUser().subscribe((res) => {
+            const newObject = {
+                email: data.email,
+                fullName: data.fullName,
+                id: res.id,
+                phonenumber: data.phonenumber,
+                role: res.role,
+            };
+            console.log(newObject);
+            this.tokenStorage.setUser(newObject, true);
+        });
+    }
+
+    ngOnInit() {}
 }

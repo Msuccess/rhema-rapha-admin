@@ -1,3 +1,4 @@
+import { TokenStorage } from './../../../../auth/service/token-storage.service';
 import { ProfileService } from './../../service/profile.service';
 import { ProfileModel } from './../../model/profile.model';
 import { ErrorService } from './../../../../core/services/error.service';
@@ -30,7 +31,8 @@ export class EditProfileComponent implements OnInit, OnChanges {
         private fb: FormBuilder,
         private profileService: ProfileService,
         private errorService: ErrorService,
-        private utilService: UtilService
+        private utilService: UtilService,
+        private tokenStorage: TokenStorage
     ) {}
 
     initProfileForm() {
@@ -45,7 +47,7 @@ export class EditProfileComponent implements OnInit, OnChanges {
             ],
             phonenumber: [
                 this.profile.phonenumber,
-                Validators.compose([Validators.required, Validators.email]),
+                Validators.compose([Validators.required]),
             ],
         });
     }
@@ -53,7 +55,6 @@ export class EditProfileComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         this.initProfileForm();
         if (changes.profileData.currentValue) {
-            console.log(changes.profileData.currentValue);
             this.profileId = changes.profileData.currentValue.id;
             this.profileForm.patchValue(changes.profileData.currentValue);
         }
@@ -73,12 +74,14 @@ export class EditProfileComponent implements OnInit, OnChanges {
             );
             return;
         }
-
         this.profileService
             .update(this.profileId, this.profileForm.value)
             .subscribe(
                 (res: any) => {
-                    console.log(res);
+                    this.utilService.showSuccessToast(
+                        'Profile Updated Successfully'
+                    );
+                    this.getProfile();
                 },
                 (error) => {
                     this.utilService.showFailToast(
@@ -87,6 +90,20 @@ export class EditProfileComponent implements OnInit, OnChanges {
                     this.errors.next(this.errorService.getErrors(error));
                 }
             );
+    }
+
+    getProfile() {
+        this.profileService.getById(this.profileId).subscribe(
+            (res: any) => {
+                this.tokenStorage.storedUserState$.next(res.data);
+                this.tokenStorage.setUser(res.data, true);
+            },
+            (error) => {
+                this.utilService.showFailToast(
+                    this.errorService.getErrors(error)
+                );
+            }
+        );
     }
 
     isControlHasError(controlName: string, validationType: string): boolean {

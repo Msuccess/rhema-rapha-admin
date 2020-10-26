@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import { of, Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class TokenStorage {
+    storedUserState$ = new BehaviorSubject<any>({} as any);
     /**
      * Get access token
      * @returns Observable<string>

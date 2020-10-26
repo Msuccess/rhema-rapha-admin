@@ -24,4 +24,14 @@ export class DoctorService extends DataService<DoctorModel> {
                 })
             );
     }
+
+    public getDoctorWithUserId(): Observable<DoctorModel> {
+        return this.http.get(`${this.baseEndPoint}doctor/self`).pipe(
+            map((data: any) => data as DoctorModel),
+            catchError((err) => {
+                this.handleError([]);
+                return throwError(err);
+            })
+        );
+    }
 }

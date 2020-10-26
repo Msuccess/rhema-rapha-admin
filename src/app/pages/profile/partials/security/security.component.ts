@@ -1,8 +1,15 @@
+import { AuthService } from './../../../../auth/service/auth.service';
 import { UtilService } from './../../../../core/services/util.service';
 import { ErrorService } from './../../../../core/services/error.service';
 import { ProfileService } from './../../service/profile.service';
 import { ChangePasswordModel } from './../../model/profile.model';
-import { Component, OnInit } from '@angular/core';
+import {
+    Component,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
@@ -11,19 +18,21 @@ import { BehaviorSubject } from 'rxjs';
     templateUrl: './security.component.html',
     styleUrls: ['./security.component.scss'],
 })
-export class SecurityComponent implements OnInit {
+export class SecurityComponent implements OnInit, OnChanges {
     changePassword = {} as ChangePasswordModel;
     changePasswordForm: FormGroup;
     loading = new BehaviorSubject<boolean>(false);
     hasFormErrors = false;
     profileId: string;
     errors = new BehaviorSubject<string>('');
+    @Input() userId: string;
 
     constructor(
         private fb: FormBuilder,
         private profileService: ProfileService,
         private errorService: ErrorService,
-        private utilService: UtilService
+        private utilService: UtilService,
+        private authService: AuthService
     ) {}
 
     initChangePasswordForm() {
@@ -34,11 +43,11 @@ export class SecurityComponent implements OnInit {
             ],
             newPassword: [
                 this.changePassword.newPassword,
-                Validators.compose([Validators.required, Validators.email]),
+                Validators.compose([Validators.required]),
             ],
             confirmPassword: [
                 this.changePassword.confirmPassword,
-                Validators.compose([Validators.required, Validators.email]),
+                Validators.compose([Validators.required]),
             ],
         });
     }
@@ -58,11 +67,14 @@ export class SecurityComponent implements OnInit {
             return;
         }
 
+        delete this.changePasswordForm.value.confirmPassword;
+
         this.profileService
-            .update(this.profileId, this.changePasswordForm.value)
+            .changePassword(this.profileId, this.changePasswordForm.value)
             .subscribe(
                 (res: any) => {
-                    console.log(res);
+                    this.utilService.showSuccessToast(res.message);
+                    this.authService.signOut();
                 },
                 (error) => {
                     this.utilService.showFailToast(
@@ -71,6 +83,12 @@ export class SecurityComponent implements OnInit {
                     this.errors.next(this.errorService.getErrors(error));
                 }
             );
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.userId.currentValue) {
+            this.profileId = changes.userId.currentValue;
+        }
     }
 
     isControlHasError(controlName: string, validationType: string): boolean {

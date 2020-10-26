@@ -24,16 +24,18 @@ export class ProfileComponent implements OnInit {
         private profileService: ProfileService,
         private utilService: UtilService,
         private errorService: ErrorService,
-        private router: Router,
         private tokenStorage: TokenStorage,
         private doctorService: DoctorService
-    ) {}
+    ) {
+        this.tokenStorage.storedUserState$.subscribe((res) => {
+            this.profileDetail = res;
+        });
+    }
 
     getProfile() {
-        this.profileService.getById(this.profileId).subscribe(
+        this.profileService.getUserById(this.profileId).subscribe(
             (res: any) => {
-                this.profileDetail = res;
-                console.log('object', res);
+                this.profileDetail = res.data;
             },
             (error) => {
                 this.utilService.showFailToast(
@@ -46,19 +48,19 @@ export class ProfileComponent implements OnInit {
     getUserId() {
         this.tokenStorage.getUser().subscribe((res) => {
             this.userRole = res.role;
+            console.log(res);
             if (res.role === 'admin') {
                 this.profileId = res.id;
-                this.profileDetail = res;
-                // this.getProfile();
-            } else {
-                this.doctorId = res.email;
+                this.getProfile();
+            } else if (res.role === 'doctor') {
+                this.doctorId = res.id;
                 this.getDoctor();
             }
         });
     }
 
     getDoctor() {
-        this.doctorService.getById(this.doctorId).subscribe(
+        this.doctorService.getDoctorWithUserId().subscribe(
             (res: any) => {
                 this.timesDoctorAvailable = res.data.timesAvailable.split(',');
                 this.daysDoctorAvailable = res.data.daysAvailable.split(',');

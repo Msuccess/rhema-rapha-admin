@@ -18,7 +18,11 @@ export class LeftsidebarComponent implements OnInit {
         private router: Router,
         private authService: AuthService,
         private tokenStorage: TokenStorage
-    ) {}
+    ) {
+        this.tokenStorage.storedUserState$.subscribe((res) => {
+            this.user = res;
+        });
+    }
 
     ngOnInit() {
         this.getUserRole();
