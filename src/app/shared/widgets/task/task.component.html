@@ -1,11 +1,34 @@
-<div class="row mt-2">
-    <div class="col">
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="task{{ id }}">
-            <label class="custom-control-label" for="task{{ id }}">
-                {{ title }}
-            </label>
-            <p class="font-size-13 text-muted">{{ text }}</p>
-        </div> <!-- end checkbox -->
-    </div>
-</div>
+<table class="table table-hover table-nowrap mb-0">
+  <tbody>
+    <tr *ngFor="let table of appointments">
+      <td>
+        <div class="media">
+          <div class="mr-2">
+            <ngx-avatar name="M Mmmmmm" size="50"></ngx-avatar>
+          </div>
+
+          <div class="media-body">
+            <h6 class="mt-1 mb-0 font-size-15">M Mmmmmm</h6>
+            <h6 class="text-muted font-weight-normal mt-1">034683744 33</h6>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="text-center">
+          <h6 class="">Appointment With</h6>
+          <h6 class="font-weight-light">Dr. Cristina Groves</h6>
+        </div>
+      </td>
+      <td>
+        <div class="text-center">
+          <h6 class="">Time</h6>
+          <h6 class="font-weight-light">7:00PM</h6>
+        </div>
+      </td>
+      <td class="vt-center">
+        <button class="btn btn-danger">Cancel</button>
+      </td>
+    </tr>
+
+  </tbody>
+</table>

@@ -6,10 +6,14 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['./members.component.scss'],
 })
 export class MembersComponent implements OnInit {
-    @Input() image: string;
+    @Input() email: string;
+    @Input() phone: string;
     @Input() name: string;
-    @Input() text: string;
     constructor() {}
+
+    viewDoctor() {}
+
+    confirmDelete() {}
 
     ngOnInit() {}
 }

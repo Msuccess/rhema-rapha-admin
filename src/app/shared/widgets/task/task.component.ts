@@ -6,9 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['./task.component.scss'],
 })
 export class TaskComponent implements OnInit {
-    @Input() title: string;
-    @Input() text: string;
-    @Input() id: number;
+    @Input() appointments: string;
+
     constructor() {}
 
     ngOnInit() {}

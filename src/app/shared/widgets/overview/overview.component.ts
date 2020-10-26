@@ -10,6 +10,7 @@ export class OverviewComponent implements OnInit {
     @Input() value: string;
     @Input() icon: string;
     @Input() classNames: string;
+    @Input() iconClass: string;
 
     constructor() {}
 

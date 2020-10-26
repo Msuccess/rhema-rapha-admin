@@ -1,10 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { UIModule } from '../ui/ui.module';
 
-import { Profile1Component } from './userprofile/profile1/profile1.component';
-import { Profile2Component } from './userprofile/profile2/profile2.component';
-import { Profile3Component } from './userprofile/profile3/profile3.component';
-import { Profile4Component } from './userprofile/profile4/profile4.component';
 import { ActivitiesComponent } from './activities/activities.component';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,6 +8,10 @@ import { MembersComponent } from './members/members.component';
 import { OverviewComponent } from './overview/overview.component';
 import { StatComponent } from './stat/stat.component';
 import { TaskComponent } from './task/task.component';
+import { AvatarModule } from 'ngx-avatar';
+import { MatIconModule, MatMenuModule } from '@angular/material';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { StatchartComponent } from './statchart/statchart.component';
 
 @NgModule({
     declarations: [
@@ -19,23 +19,26 @@ import { TaskComponent } from './task/task.component';
         MembersComponent,
         TaskComponent,
         StatComponent,
-        Profile1Component,
-        Profile2Component,
-        Profile3Component,
-        Profile4Component,
         ActivitiesComponent,
+        StatchartComponent,
     ],
-    imports: [CommonModule, UIModule, FormsModule, ReactiveFormsModule],
+    imports: [
+        CommonModule,
+        UIModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AvatarModule,
+        MatIconModule,
+        MatMenuModule,
+        NgApexchartsModule,
+    ],
     exports: [
         OverviewComponent,
         MembersComponent,
         TaskComponent,
         StatComponent,
-        Profile1Component,
-        Profile2Component,
-        Profile3Component,
-        Profile4Component,
         ActivitiesComponent,
+        StatchartComponent,
     ],
 })
 export class WidgetModule {}

@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card-body p-0">
+    <div class="media p-3">
+      <div class="media-body">
+        <span class="text-muted text-uppercase font-size-12 font-weight-bold">{{ mainTitle }}</span>
+        <h2 class="mb-0">{{ value }}</h2>
+      </div>
+      <i [attr.data-feather]="icon" appFeatherIcon class="icon-dual icon-lg align-self-center"></i>
+    </div>
+  </div>
+</div>
+<app-overview value='121,000' icon='users' title="Total Visitors" classNames="px-3 py-4">
+</app-overview>

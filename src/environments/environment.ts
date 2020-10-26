@@ -4,6 +4,6 @@
 
 export const environment = {
     production: false,
-    baseUrl: 'https://rhema-rapha-api.herokuapp.com/api/',
-    // baseUrl: 'http://localhost:3000/api/',
+    // baseUrl: 'https://rhema-rapha-api.herokuapp.com/api/',
+    baseUrl: 'http://localhost:3000/api/',
 };
