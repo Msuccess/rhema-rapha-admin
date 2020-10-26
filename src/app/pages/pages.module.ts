@@ -17,6 +17,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SecurityComponent } from './profile/partials/security/security.component';
 import { EditProfileComponent } from './profile/partials/edit-profile/edit-profile.component';
 import { EditDocProfileComponent } from './profile/partials/edit-profile/doctor-edit/edit-doc-profile/edit-doc-profile.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import { EditDocProfileComponent } from './profile/partials/edit-profile/doctor-
         PagesRoutingModule,
         MaterialModule,
         NgbModule,
+        NgApexchartsModule,
     ],
     entryComponents: [
         AddAppointmentComponent,

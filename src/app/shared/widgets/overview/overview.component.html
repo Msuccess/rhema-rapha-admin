@@ -6,7 +6,7 @@
         <h4 class="mt-0 mb-2 font-size-22 font-weight-normal ">{{ value }}</h4>
         <span class="text-muted text-uppercase">{{ title }}</span>
       </div>
-      <i [attr.data-feather]="icon" appFeatherIcon class="icon-lg align-self-center icon-dual-info"></i>
+      <i [attr.data-feather]="icon" appFeatherIcon class="icon-lg align-self-center" [ngClass]="iconClass"></i>
     </div>
   </div>
 </div>

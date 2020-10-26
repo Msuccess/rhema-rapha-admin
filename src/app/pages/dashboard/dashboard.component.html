@@ -4,61 +4,51 @@
       <h4 class="mb-1 mt-0">Dashboard</h4>
     </div>
     <div class="col-sm-8 col-xl-6">
-      <form class="form-inline float-sm-right mt-3 mt-sm-0">
-        <div class="form-group mb-sm-0 mr-2">
-          <input type="text" class="form-control" id="dashdaterange" style="min-width: 208px;"
-            placeholder="2018-10-03 to 2018-10-10" />
-          <label></label>
-        </div>
-        <div class="btn-group" ngbDropdown>
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" ngbDropdownToggle>
-            <i class='uil uil-file-alt mr-1'></i>Download
-            <i class="icon"><span>
-                <i data-feather="chevron-down"></i>
-              </span></i></button>
-          <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
-            <a href="javascript: void(0);" class="dropdown-item notify-item">
-              <i data-feather="mail" class="icon-dual icon-xs mr-2"></i>
-              <span> Email</span>
-            </a>
-            <a href="javascript: void(0);" class="dropdown-item notify-item">
-              <i data-feather="printer" class="icon-dual icon-xs mr-2"></i>
-              <span> Print</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="javascript: void(0);" class="dropdown-item notify-item">
-              <i data-feather="file" class="icon-dual icon-xs mr-2"></i>
-              <span> Re-Generate</span>
-            </a>
-          </div>
-        </div>
-      </form>
+
     </div>
   </div>
   <!-- Widget  -->
   <div class="row">
     <div class="col-md-6 col-xl-3">
-      <app-overview value='121,000' icon='users' title="total patient" classNames="px-3 py-4">
+      <app-overview value='121,000' icon='users' title="total patient" classNames="px-3 py-4"
+        iconClass="icon-dual-info">
       </app-overview>
     </div>
     <div class="col-md-6 col-xl-3">
-      <app-overview value='121,000' icon='user' title="total doctors" classNames="px-3 py-4">
+      <app-overview value='121,000' icon='heart' title="total doctors" classNames="px-3 py-4"
+        iconClass="icon-dual-primary">
       </app-overview>
     </div>
     <div class="col-md-6 col-xl-3">
-      <app-overview value='121,000' icon='calendar' title="all appointments" classNames="px-3 py-4">
+      <app-overview value='121,000' icon='calendar' title="all appointments" classNames="px-3 py-4"
+        iconClass="icon-dual-danger">
       </app-overview>
     </div>
     <div class="col-md-6 col-xl-3">
-      <app-overview value='121,000' icon='package' title="total departments" classNames="px-3 py-4">
+      <app-overview value='121,000' icon='package' title="total departments" classNames="px-3 py-4"
+        iconClass="icon-dual-success">
       </app-overview>
     </div>
   </div>
   <!-- end widget -->
   <div class="row">
-    <div class="col-xl-3">
+    <div class="col-xl-4">
+      <div class="card">
+        <div class="card-body pt-2 pb-2">
+          <h5 class="mb-4 header-title">Doctors</h5>
+          <div class="slimscroll" style="max-height: 290px;" appSlimScroll>
+            <app-members phone="Senior Sales Guy" name="Shreyu N" email="">
+            </app-members>
+            <app-members phone="Social Media Campaign" name="Greeva Y" email="">
+            </app-members>
+            <app-members phone="Inventory Manager" name="Nik G" email="">
+            </app-members>
+          </div>
+
+        </div>
+      </div>
     </div>
-    <div class="col-xl-6">
+    <div class="col-xl-8">
       <div class="card">
         <div class="card-body pb-0">
           <ul class="nav card-nav float-right">
@@ -80,31 +70,15 @@
           </ul>
           <h5 class="card-title header-title mb-0">Revenue</h5>
           <!-- Reenue Area Chart -->
-          <!-- <div class="mt-3">
+          <div class="mt-3">
             <apx-chart [series]="revenueAreaChart.series" [chart]="revenueAreaChart.chart"
               [tooltip]="revenueAreaChart.tooltip" [colors]="revenueAreaChart.colors"
-              [dataLabels]="revenueAreaChart.dataLabels" [stroke]="revenueAreaChart.stroke" [grid]="revenueAreaChart.grid"
-              [fill]="revenueAreaChart.fill" [yaxis]="revenueAreaChart.yaxis" [xaxis]="revenueAreaChart.xaxis">
+              [dataLabels]="revenueAreaChart.dataLabels" [stroke]="revenueAreaChart.stroke"
+              [grid]="revenueAreaChart.grid" [fill]="revenueAreaChart.fill" [yaxis]="revenueAreaChart.yaxis"
+              [xaxis]="revenueAreaChart.xaxis">
             </apx-chart>
-          </div> -->
-          <!-- end revenue chart -->
-        </div>
-      </div>
-    </div>
-    <div class="col-xl-3">
-      <div class="card">
-        <div class="card-body pb-0">
-          <h5 class="card-title header-title">Targets</h5>
-          <!-- Target bar chart -->
-          <div class="mt-3">
-            <!-- <apx-chart [series]="targetsBarChart.series" [chart]="targetsBarChart.chart"
-              [colors]="targetsBarChart.colors" [plotOptions]="targetsBarChart.plotOptions"
-              [tooltip]="targetsBarChart.tooltip"
-              [yaxis]="targetsBarChart.yaxis" [legend]="targetsBarChart.legend" [xaxis]="targetsBarChart.xaxis"
-              [dataLabels]="targetsBarChart.dataLabels" [labels]="targetsBarChart.labels">
-            </apx-chart> -->
           </div>
-          <!-- end target chart -->
+          <!-- end revenue chart -->
         </div>
       </div>
     </div>
@@ -113,15 +87,18 @@
   <div class="row">
     <div class="col-xl-5">
       <div class="card">
-        <div class="card-body">
-          <h5 class="card-title header-title mt-0 pb-2">Sales By Category</h5>
-          <!-- Sales donut chart -->
-          <!-- <apx-chart [series]="salesDonutChart.series" [chart]="salesDonutChart.chart"
-            [plotOptions]="salesDonutChart.plotOptions" [responsive]="salesDonutChart.responsive"
-            [legend]="salesDonutChart.legend" [labels]="salesDonutChart.labels" [tooltip]="salesDonutChart.tooltip"
-            [colors]="salesDonutChart.colors">
-          </apx-chart> -->
-          <!-- end sales chart -->
+        <div class="card-body pt-2 pb-3">
+          <a routerLink="/task-list" class="btn btn-primary btn-sm mt-2 float-right">
+            View All
+          </a>
+
+          <h5 class="mb-4 header-title">New Patients</h5>
+          <div class="table-responsive mt-4">
+            <div class="slimscroll" style="max-height: 390px;" appSlimScroll>
+              <app-activities [patients]="recentAppointments"></app-activities>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -134,71 +111,14 @@
           </a>
           <h5 class="card-title header-title mt-0 mb-0">Recent Appointment</h5>
           <div class="table-responsive mt-4">
-            <app-task [appointments]="recentAppointments"></app-task>
+            <div class="slimscroll" style="max-height: 390px;" appSlimScroll>
+              <app-task [appointments]="recentAppointments"></app-task>
+            </div>
+
           </div><!-- end table -->
         </div><!-- end card-body -->
       </div><!-- end card -->
     </div>
   </div>
-  <div class="row">
-    <div class="col-xl-4">
-      <div class="card">
-        <div class="card-body pt-2 pb-2">
-          <h5 class="mb-4 header-title">Doctors</h5>
-          <div class="slimscroll" style="max-height: 400px;" appSlimScroll>
-            <app-members phone="Senior Sales Guy" name="Shreyu N" email="">
-            </app-members>
-            <app-members phone="Social Media Campaign" name="Greeva Y" email="">
-            </app-members>
-            <app-members phone="Inventory Manager" name="Nik G" email="">
-            </app-members>
-            <app-members phone="Sales Persons" name="Hardik G" email="">
-            </app-members>
-            <app-members phone="Sales Persons" name="Stive K" email="">
-            </app-members>
-          </div>
 
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xl-4">
-      <div class="card">
-        <div class="card-body pt-2 pb-3">
-          <a routerLink="/task-list" class="btn btn-primary btn-sm mt-2 float-right">
-            View All
-          </a>
-          <h5 class="mb-4 header-title">New Patients</h5>
-          <div class="slimscroll" style="max-height: 400px;" appSlimScroll>
-            <app-activities [patients]="recentAppointments"></app-activities>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xl-4">
-      <div class="card">
-        <div class="card-body pt-2">
-          <div class="dropdown mt-2 float-right" ngbDropdown>
-            <a href="javascript: void(0);" class="dropdown-toggle arrow-none text-muted" ngbDropdownToggle>
-              <i class="uil uil-ellipsis-v"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
-              <!-- item-->
-              <a href="javascript:void(0);" class="dropdown-item"><i class="uil uil-refresh mr-2"></i>Refresh</a>
-              <!-- item-->
-              <a href="javascript:void(0);" class="dropdown-item"><i class="uil uil-user-plus mr-2"></i>Add Member</a>
-              <div class="dropdown-divider"></div>
-              <!-- item-->
-              <a href="javascript:void(0);" class="dropdown-item text-danger"><i class="uil uil-exit mr-2"></i>Exit</a>
-            </div>
-          </div>
-          <h5 class="mb-4 header-title">Recent Conversation</h5>
-          <div class="chat-conversation">
-            <!-- <app-chat maxHeight="328"></app-chat> -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

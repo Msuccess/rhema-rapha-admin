@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {
-    revenueAreaChart,
-    targetsBarChart,
-    salesDonutChart,
-    ordersData,
-} from './data';
+import { revenueAreaChart } from './data';
 
 import { ChartType, OrdersTable } from './dashboard.model';
 
@@ -19,14 +14,11 @@ import { ChartType, OrdersTable } from './dashboard.model';
  * Dashboard component - handling dashboard with sidear and content
  */
 export class DashboardComponent implements OnInit {
-    recentAppointments = [1, 2, 3];
+    recentAppointments = [1, 2, 3, 4, 5, 6];
 
     constructor() {}
 
     revenueAreaChart: ChartType;
-    targetsBarChart: ChartType;
-    salesDonutChart: ChartType;
-    ordersData: OrdersTable[];
 
     ngOnInit() {
         /**
@@ -40,8 +32,5 @@ export class DashboardComponent implements OnInit {
      */
     private _fetchData() {
         this.revenueAreaChart = revenueAreaChart;
-        this.targetsBarChart = targetsBarChart;
-        this.salesDonutChart = salesDonutChart;
-        this.ordersData = ordersData;
     }
 }
