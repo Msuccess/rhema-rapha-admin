@@ -27,7 +27,7 @@ export class AddAppointmentComponent implements OnInit {
     doctors = [];
     patients = [];
     appointmentTimes = [];
-    appointmentDays=[];
+    appointmentDays = [];
 
     constructor(
         private fb: FormBuilder,
@@ -130,7 +130,9 @@ export class AddAppointmentComponent implements OnInit {
                 (err) => {
                     this.loading.next(false);
                     this.hasFormErrors = true;
-
+                    this.utilService.showFailToast(
+                        this.errorService.getErrors(err)
+                    );
                     this.errors.next(this.errorService.getErrors(err));
                     console.log(this.errors.getValue());
                 }
@@ -150,6 +152,9 @@ export class AddAppointmentComponent implements OnInit {
             (err) => {
                 this.loading.next(false);
                 this.hasFormErrors = true;
+                this.utilService.showFailToast(
+                    this.errorService.getErrors(err)
+                );
 
                 this.errors.next(this.errorService.getErrors(err));
                 console.log(this.errors.getValue());
