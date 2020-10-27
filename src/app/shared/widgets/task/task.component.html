@@ -1,32 +1,32 @@
 <table class="table table-hover table-nowrap mb-0">
   <tbody>
-    <tr *ngFor="let table of appointments">
+    <tr *ngFor="let appointment of appointments">
       <td>
         <div class="media">
           <div class="mr-2">
-            <ngx-avatar name="M Mmmmmm" size="50"></ngx-avatar>
+            <ngx-avatar name="{{appointment.patient?.fullName}}" size="50"></ngx-avatar>
           </div>
 
           <div class="media-body">
-            <h6 class="mt-1 mb-0 font-size-15">M Mmmmmm</h6>
-            <h6 class="text-muted font-weight-normal mt-1">034683744 33</h6>
+            <h6 class="mt-1 mb-0 font-size-15">{{appointment.patient?.fullName}}</h6>
+            <h6 class="text-muted font-weight-normal mt-1">{{appointment.patient?.phonenumber}}</h6>
           </div>
         </div>
       </td>
       <td>
         <div class="text-center">
           <h6 class="">Appointment With</h6>
-          <h6 class="font-weight-light">Dr. Cristina Groves</h6>
+          <h6 class="font-weight-light">Dr. {{appointment.doctor?.fullName}}</h6>
         </div>
       </td>
       <td>
         <div class="text-center">
           <h6 class="">Time</h6>
-          <h6 class="font-weight-light">7:00PM</h6>
+          <h6 class="font-weight-light">{{appointment.appointmentTime}}</h6>
         </div>
       </td>
       <td class="vt-center">
-        <button class="btn btn-danger">Cancel</button>
+        <button class="btn btn-danger btn-sm" (click)="cancelAppointment()">Cancel</button>
       </td>
     </tr>
 

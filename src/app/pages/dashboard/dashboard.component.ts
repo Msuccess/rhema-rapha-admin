@@ -1,36 +1,144 @@
-import { Component, OnInit } from '@angular/core';
+import { TokenStorage } from './../../auth/service/token-storage.service';
+import { DashboardService } from './service/dashboard.service';
+import { ErrorService } from './../../core/services/error.service';
+import { UtilService } from './../../core/services/util.service';
+import { DoctorService } from './../doctor/service/doctor.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { revenueAreaChart } from './data';
 
-import { ChartType, OrdersTable } from './dashboard.model';
+import { ChartType } from './dashboard.model';
+import { ChartComponent } from 'ng-apexcharts';
 
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
 })
-
-/**
- * Dashboard component - handling dashboard with sidear and content
- */
 export class DashboardComponent implements OnInit {
-    recentAppointments = [1, 2, 3, 4, 5, 6];
+    @ViewChild('chart', { static: true }) chart: ChartComponent;
+    public chartOptions: ChartType;
 
-    constructor() {}
+    recentAppointments = [];
+    doctors = [];
+    doctorNumber: number;
+    patientNumber: number;
+    appointmentNumber: number;
+    departmentNumber: number;
+    newDoctor: any;
+    newPatient: any;
+    recentAppointment: any;
+    userRole: string;
+    doctorAppointmentNumber: number;
+    graphDepartments = [];
+    graphDoctors = [];
+
+    constructor(
+        private doctorService: DoctorService,
+        private utilService: UtilService,
+        private errorService: ErrorService,
+        private dashboardService: DashboardService,
+        private tokenStorage: TokenStorage
+    ) {
+        this.getUserRole();
+    }
 
     revenueAreaChart: ChartType;
 
+    private getDoctors() {
+        this.doctorService.getList().subscribe(
+            (res: any) => {
+                this.doctors = res;
+            },
+            (error) => {
+                this.utilService.showFailToast(
+                    this.errorService.getErrors(error)
+                );
+            }
+        );
+    }
+    private getUserRole() {
+        this.tokenStorage.getUser().subscribe((res: any) => {
+            this.userRole = res.role;
+        });
+    }
+
+    private getDataNumber() {
+        this.dashboardService.getNumbers().subscribe(
+            (res: any) => {
+                this.doctorNumber = res[0].data[1];
+                this.patientNumber = res[1].data[1];
+                this.appointmentNumber = res[2].data[1];
+                this.departmentNumber = res[3].data[1];
+            },
+            (error) => {
+                this.utilService.showFailToast(
+                    this.errorService.getErrors(error)
+                );
+            }
+        );
+    }
+
+    private getNewData() {
+        this.dashboardService.getNewData().subscribe(
+            (res: any) => {
+                console.log('New >>>>>>>>>>>>>>>>>>', res);
+                this.newDoctor = res[0].data;
+                this.newPatient = res[1].data;
+                this.recentAppointment = res[2].data;
+            },
+            (error) => {
+                this.utilService.showFailToast(
+                    this.errorService.getErrors(error)
+                );
+            }
+        );
+    }
+
+    private getGraphData() {
+        this.dashboardService.departmentGraph().subscribe(
+            (res: any[]) => {
+                res.forEach((dt) => {
+                    this.graphDepartments.push(dt.name);
+                    this.graphDoctors.push(dt.doctor.length);
+                });
+
+                this._fetchData();
+            },
+            (error) => {
+                this.utilService.showFailToast(
+                    this.errorService.getErrors(error)
+                );
+            }
+        );
+    }
+
     ngOnInit() {
-        /**
-         * Fetches the data
-         */
-        this._fetchData();
+        this.getDataNumber();
+        this.getDoctors();
+        this.getNewData();
+        this.getGraphData();
     }
 
     /**
      * fetches the dashboard value
      */
     private _fetchData() {
-        this.revenueAreaChart = revenueAreaChart;
+        this.revenueAreaChart = {
+            series: [
+                {
+                    name: 'Doctor',
+                    data: this.graphDoctors,
+                },
+            ],
+            chart: {
+                height: 350,
+                type: 'bar',
+            },
+
+            xaxis: {
+                categories: this.graphDepartments,
+            },
+        };
     }
 }

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -9,11 +10,13 @@ export class MembersComponent implements OnInit {
     @Input() email: string;
     @Input() phone: string;
     @Input() name: string;
-    constructor() {}
+    @Input() id: string;
 
-    viewDoctor() {}
+    constructor(private router: Router) {}
 
-    confirmDelete() {}
+    viewDoctor(id: string) {
+        this.router.navigate(['/doctor', id]);
+    }
 
     ngOnInit() {}
 }

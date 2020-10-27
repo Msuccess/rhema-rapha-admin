@@ -5,22 +5,12 @@
 
   <div class="media-body">
     <h6 class="mt-1 mb-0 font-size-15">{{ name }}</h6>
-    <h6 class="text-muted font-weight-normal mt-1 mb-3">{{ email }}</h6>
-    <h6 class="text-muted font-weight-normal mt-1 mb-3">{{ phone }}</h6>
+    <h6 class="text-muted font-weight-normal mt-1">{{ email }}</h6>
+    <h6 class="text-muted font-weight-normal mt-1">{{ phone }}</h6>
   </div>
   <div class="align-self-center float-right">
-    <button mat-button [matMenuTriggerFor]="beforeMenu" class="btn btn-primary">
-      Action
-      <i data-feather="chevron-down"></i></button>
-    <mat-menu #beforeMenu="matMenu" xPosition="before">
-      <button mat-menu-item (click)="confirmDelete()">
-        <mat-icon>delete</mat-icon>
-        <span>Delete</span>
-      </button>
-      <button mat-menu-item (click)="viewDoctor()">
-        <mat-icon>adjust</mat-icon>
-        <span>View</span>
-      </button>
-    </mat-menu>
+    <button class="btn btn-info btn-sm" (click)="viewDoctor(id)">
+      View
+    </button>
   </div>
 </div>

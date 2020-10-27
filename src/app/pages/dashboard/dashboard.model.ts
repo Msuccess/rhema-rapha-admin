@@ -1,4 +1,3 @@
-
 export interface OrdersTable {
     id: string;
     product: string;
@@ -17,6 +16,7 @@ export interface ChartType {
     fill?: any;
     labels?: any;
     markers?: any;
+    title?: any;
     legend?: any;
     xaxis?: any;
     yaxis?: any;

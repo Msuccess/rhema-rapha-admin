@@ -1,21 +1,21 @@
 <table class="table table-hover table-nowrap mb-0">
   <tbody>
-    <tr *ngFor="let table of patients">
+    <tr *ngFor="let patient of patients">
       <td>
         <div class="media">
           <div class="mr-2">
-            <ngx-avatar name="M Mmmmmm" size="50"></ngx-avatar>
+            <ngx-avatar name="{{patient.fullName}}" size="50"></ngx-avatar>
           </div>
           <div class="media-body align-self-center">
-            <h6 class="mt-1 mb-0 font-size-15">M Mmmmmm</h6>
+            <h6 class="mt-1 mb-0 font-size-15">{{patient.fullName}}</h6>
           </div>
         </div>
       </td>
       <td class="vt-center">
-        email
+        {{patient.email}}
       </td>
       <td class="vt-center">
-        034683744 33
+        {{patient.phonenumber}}
       </td>
 
     </tr>

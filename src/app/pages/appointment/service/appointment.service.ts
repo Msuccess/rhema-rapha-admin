@@ -32,4 +32,16 @@ export class AppointmentService extends DataService<AppointmentModel> {
             })
         );
     }
+
+    public cancelAppointment(id: string) {
+        return this.http
+            .get(`${this.baseEndPoint}appointment/cancel/${id}`)
+            .pipe(
+                map((data: any) => data as AppointmentModel),
+                catchError((err) => {
+                    this.handleError([]);
+                    return throwError(err);
+                })
+            );
+    }
 }

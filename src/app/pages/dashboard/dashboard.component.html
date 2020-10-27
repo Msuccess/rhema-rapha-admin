@@ -7,118 +7,134 @@
 
     </div>
   </div>
-  <!-- Widget  -->
-  <div class="row">
-    <div class="col-md-6 col-xl-3">
-      <app-overview value='121,000' icon='users' title="total patient" classNames="px-3 py-4"
-        iconClass="icon-dual-info">
-      </app-overview>
-    </div>
-    <div class="col-md-6 col-xl-3">
-      <app-overview value='121,000' icon='heart' title="total doctors" classNames="px-3 py-4"
-        iconClass="icon-dual-primary">
-      </app-overview>
-    </div>
-    <div class="col-md-6 col-xl-3">
-      <app-overview value='121,000' icon='calendar' title="all appointments" classNames="px-3 py-4"
-        iconClass="icon-dual-danger">
-      </app-overview>
-    </div>
-    <div class="col-md-6 col-xl-3">
-      <app-overview value='121,000' icon='package' title="total departments" classNames="px-3 py-4"
-        iconClass="icon-dual-success">
-      </app-overview>
-    </div>
-  </div>
-  <!-- end widget -->
-  <div class="row">
-    <div class="col-xl-4">
-      <div class="card">
-        <div class="card-body pt-2 pb-2">
-          <h5 class="mb-4 header-title">Doctors</h5>
-          <div class="slimscroll" style="max-height: 290px;" appSlimScroll>
-            <app-members phone="Senior Sales Guy" name="Shreyu N" email="">
-            </app-members>
-            <app-members phone="Social Media Campaign" name="Greeva Y" email="">
-            </app-members>
-            <app-members phone="Inventory Manager" name="Nik G" email="">
-            </app-members>
-          </div>
 
-        </div>
+  <ng-container *ngIf="(userRole|lowercase) === 'admin'">
+
+    <!-- Widget  -->
+    <div class="row mb-3">
+      <div class="col-md-6 col-xl-3">
+        <app-overview [value]='patientNumber' icon='users' title="total patient" classNames="px-3 py-4"
+          iconClass="icon-dual-info">
+        </app-overview>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <app-overview [value]='doctorNumber' icon='heart' title="total doctors" classNames="px-3 py-4"
+          iconClass="icon-dual-primary">
+        </app-overview>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <app-overview [value]='appointmentNumber' icon='calendar' title="all appointments" classNames="px-3 py-4"
+          iconClass="icon-dual-danger">
+        </app-overview>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <app-overview [value]='departmentNumber' icon='package' title="total departments" classNames="px-3 py-4"
+          iconClass="icon-dual-success">
+        </app-overview>
       </div>
     </div>
-    <div class="col-xl-8">
-      <div class="card">
-        <div class="card-body pb-0">
-          <ul class="nav card-nav float-right">
-            <li class="nav-item">
-              <a class="nav-link text-muted" href="javascript: void(0);">Today</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-muted" href="javascript: void(0);">7d</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="javascript: void(0);">15d</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-muted" href="javascript: void(0);">1m</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-muted" href="javascript: void(0);">1y</a>
-            </li>
-          </ul>
-          <h5 class="card-title header-title mb-0">Revenue</h5>
-          <!-- Reenue Area Chart -->
-          <div class="mt-3">
-            <apx-chart [series]="revenueAreaChart.series" [chart]="revenueAreaChart.chart"
-              [tooltip]="revenueAreaChart.tooltip" [colors]="revenueAreaChart.colors"
-              [dataLabels]="revenueAreaChart.dataLabels" [stroke]="revenueAreaChart.stroke"
-              [grid]="revenueAreaChart.grid" [fill]="revenueAreaChart.fill" [yaxis]="revenueAreaChart.yaxis"
-              [xaxis]="revenueAreaChart.xaxis">
-            </apx-chart>
-          </div>
-          <!-- end revenue chart -->
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-xl-5">
-      <div class="card">
-        <div class="card-body pt-2 pb-3">
-          <a routerLink="/task-list" class="btn btn-primary btn-sm mt-2 float-right">
-            View All
-          </a>
-
-          <h5 class="mb-4 header-title">New Patients</h5>
-          <div class="table-responsive mt-4">
-            <div class="slimscroll" style="max-height: 390px;" appSlimScroll>
-              <app-activities [patients]="recentAppointments"></app-activities>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xl-7">
-      <div class="card">
-        <div class="card-body">
-          <a href="javascript: void(0);" class="btn btn-primary btn-sm float-right">
-            View All
-          </a>
-          <h5 class="card-title header-title mt-0 mb-0">Recent Appointment</h5>
-          <div class="table-responsive mt-4">
-            <div class="slimscroll" style="max-height: 390px;" appSlimScroll>
-              <app-task [appointments]="recentAppointments"></app-task>
+    <!-- end widget -->
+    <div class="row mb-3">
+      <div class="col-xl-4">
+        <div class="card">
+          <div class="card-body pt-2 pb-2">
+            <h5 class="mb-4 header-title">Doctors</h5>
+            <div class="slimscroll" style="max-height: 290px;" appSlimScroll>
+              <ng-container *ngFor="let d of newDoctor">
+                <app-members phone="{{d.phonenumber}}" name="{{d.fullName}}" id={{d.id}} email="{{d.email}}">
+                </app-members>
+              </ng-container>
             </div>
 
-          </div><!-- end table -->
-        </div><!-- end card-body -->
-      </div><!-- end card -->
-    </div>
-  </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-8">
+        <div class="card">
+          <div class="card-body pb-0">
 
+            <h5 class="card-title header-title mb-0">Department Doctors</h5>
+            <!-- Reenue Area Chart -->
+            <div class="mt-3">
+              <apx-chart [series]="revenueAreaChart.series" [chart]="revenueAreaChart.chart"
+                [xaxis]="revenueAreaChart.xaxis"></apx-chart>
+
+            </div>
+            <!-- end revenue chart -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-xl-5">
+        <div class="card">
+          <div class="card-body pt-2 pb-3">
+            <a routerLink="/patient" class="btn btn-primary btn-sm mt-2 float-right">
+              View All
+            </a>
+
+            <h5 class="mb-4 header-title">New Patients</h5>
+            <div class="table-responsive mt-4">
+              <div class="slimscroll" style="max-height: 390px;" appSlimScroll>
+                <app-activities [patients]="newPatient"></app-activities>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-7">
+        <div class="card">
+          <div class="card-body">
+            <a routerLink="/appointment" class="btn btn-primary btn-sm float-right">
+              View All
+            </a>
+            <h5 class="card-title header-title mt-0 mb-0">Recent Appointment</h5>
+            <div class="table-responsive mt-4">
+              <div class="slimscroll" style="max-height: 390px;" appSlimScroll>
+                <app-task [appointments]="recentAppointment"></app-task>
+              </div>
+
+            </div><!-- end table -->
+          </div><!-- end card-body -->
+        </div><!-- end card -->
+      </div>
+    </div>
+  </ng-container>
+
+
+
+
+
+
+  <ng-container *ngIf="(userRole|lowercase) === 'doctor'">
+    <div class="row mb-3">
+      <div class="col-md-6 col-xl-3">
+        <app-overview [value]='doctorAppointmentNumber' icon='users' title="total patient" classNames="px-3 py-4"
+          iconClass="icon-dual-info">
+        </app-overview>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-body">
+            <a href="javascript: void(0);" class="btn btn-primary btn-sm float-right">
+              View All
+            </a>
+            <h5 class="card-title header-title mt-0 mb-0">Recent Appointment</h5>
+            <div class="table-responsive mt-4">
+              <div class="slimscroll" style="max-height: 390px;" appSlimScroll>
+                <app-task [appointments]="recentAppointments"></app-task>
+              </div>
+
+            </div><!-- end table -->
+          </div><!-- end card-body -->
+        </div><!-- end card -->
+      </div>
+    </div>
+  </ng-container>
 </div>
