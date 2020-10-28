@@ -20,7 +20,7 @@ export class AddPatientComponent implements OnInit {
     patient = {} as PatientModel;
     updating$ = new BehaviorSubject<boolean>(false);
     genders = ['Male', 'Female', 'Others'];
-    minDate: Date;
+    maxDate = new Date();
 
     constructor(
         private fb: FormBuilder,
@@ -30,7 +30,6 @@ export class AddPatientComponent implements OnInit {
         public dialogRef: MatDialogRef<AddPatientComponent>,
         @Inject(MAT_DIALOG_DATA) public data: PatientModel
     ) {
-        this.minDate = new Date();
     }
 
     initPatientForm() {
