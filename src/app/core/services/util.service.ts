@@ -1,3 +1,4 @@
+import { CancelConfirmationComponent } from './../../shared/cancel-confirmation/cancel-confirmation.component';
 import { ToastrService } from 'ngx-toastr';
 import { ActionNotificationComponent } from './../../shared/action-notification/action-notification.component';
 import { HttpClient } from '@angular/common/http';
@@ -53,7 +54,7 @@ export class UtilService {
 
     showCancelConfirm(successCallback: Function, message: string) {
         this.modalService
-            .open(ActionNotificationComponent, { centered: true })
+            .open(CancelConfirmationComponent, { centered: true })
             .result.then(
                 (result: any) => {
                     console.log('Result', result);
