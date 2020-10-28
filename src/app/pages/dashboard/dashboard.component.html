@@ -56,8 +56,11 @@
             <h5 class="card-title header-title mb-0">Department Doctors</h5>
             <!-- Reenue Area Chart -->
             <div class="mt-3">
-              <apx-chart [series]="revenueAreaChart.series" [chart]="revenueAreaChart.chart"
-                [xaxis]="revenueAreaChart.xaxis"></apx-chart>
+              <apx-chart [series]="revenueAreaChart?.series" [chart]="revenueAreaChart?.chart"
+                [tooltip]="revenueAreaChart?.tooltip" [colors]="revenueAreaChart?.colors"
+                [dataLabels]="revenueAreaChart?.dataLabels" [stroke]="revenueAreaChart?.stroke"
+                [grid]="revenueAreaChart?.grid" [fill]="revenueAreaChart?.fill" [xaxis]="revenueAreaChart?.xaxis">
+              </apx-chart>
 
             </div>
             <!-- end revenue chart -->

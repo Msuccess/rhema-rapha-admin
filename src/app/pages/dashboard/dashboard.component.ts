@@ -5,8 +5,6 @@ import { UtilService } from './../../core/services/util.service';
 import { DoctorService } from './../doctor/service/doctor.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { revenueAreaChart } from './data';
-
 import { ChartType } from './dashboard.model';
 import { ChartComponent } from 'ng-apexcharts';
 
@@ -125,19 +123,57 @@ export class DashboardComponent implements OnInit {
      */
     private _fetchData() {
         this.revenueAreaChart = {
+            chart: {
+                height: 282,
+                type: 'area',
+                toolbar: {
+                    show: false,
+                },
+            },
+            tooltip: {
+                theme: 'dark',
+                x: { show: false },
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 4,
+            },
             series: [
                 {
-                    name: 'Doctor',
+                    name: 'Doctors',
                     data: this.graphDoctors,
                 },
             ],
-            chart: {
-                height: 350,
-                type: 'bar',
+            dataLabels: {
+                enabled: true,
             },
-
+            zoom: {
+                enabled: false,
+            },
+            legend: {
+                show: true,
+            },
+            colors: ['#43d39e'],
             xaxis: {
+                type: 'string',
                 categories: this.graphDepartments,
+                tooltip: {
+                    enabled: false,
+                },
+                axisBorder: {
+                    show: false,
+                },
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    type: 'vertical',
+                    shadeIntensity: 1,
+                    inverseColors: false,
+                    opacityFrom: 0.45,
+                    opacityTo: 0.05,
+                    stops: [45, 100],
+                },
             },
         };
     }
