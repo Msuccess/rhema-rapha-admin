@@ -123,6 +123,19 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
         this.utilService.showConfirm(() => this.deletePatient(id));
     }
 
+    public cancel(id: string) {
+      this.appointmentService.cancelAppointment(id).subscribe(
+          (res: any) => {
+              this.utilService.showSuccessToast('Appointment Cancelled');
+          },
+          (error) => {
+              this.utilService.showFailToast(
+                  this.errorService.getErrors(error)
+              );
+          }
+      );
+  }
+
     addAppointment() {
         const dialogRef = this.dialog.open(AddAppointmentComponent, {
             maxWidth: '500px',
@@ -155,6 +168,11 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
     viewAppointment(id: string) {
         this.router.navigate(['/appointment/', id]);
     }
+
+    cancelAppointment(id:string){
+      this.utilService.showCancelConfirm(() => this.cancel(id));
+    }
+
 
     getUserRole() {
         this.tokenStorage.getUser().subscribe((res) => {

@@ -84,10 +84,16 @@
                       <mat-icon>adjust</mat-icon>
                       <span>View</span>
                     </button>
+                    <button mat-menu-item (click)="cancelAppointment(row.id)">
+                      <mat-icon>close</mat-icon>
+                      <span>Cancel</span>
+                    </button>
+
                     <button mat-menu-item (click)="editAppointment(row)">
                       <mat-icon>create</mat-icon>
                       <span>Edit</span>
                     </button>
+
                   </mat-menu>
                 </td>
               </ng-container>

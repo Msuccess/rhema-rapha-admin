@@ -52,7 +52,9 @@ export class UtilService {
             );
     }
 
-    showCancelConfirm(successCallback: Function, message: string) {
+    showCancelConfirm(successCallback: Function,
+      _failCallback?: Function,
+      _message?: string) {
         this.modalService
             .open(CancelConfirmationComponent, { centered: true })
             .result.then(
