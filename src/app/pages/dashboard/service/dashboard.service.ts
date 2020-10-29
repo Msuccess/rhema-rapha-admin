@@ -70,4 +70,16 @@ export class DashboardService extends DataService<any> {
             })
         );
     }
+
+
+    public recentAppointment() {
+      return this.http.get(`${this.baseEndPoint}analytics/recent_appointment`).pipe(
+          map((data: any) => this.convertData(data)),
+
+          catchError((err) => {
+              this.handleError([]);
+              return throwError(err);
+          })
+      );
+  }
 }

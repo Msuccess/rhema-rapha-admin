@@ -7,6 +7,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ChartType } from './dashboard.model';
 import { ChartComponent } from 'ng-apexcharts';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-dashboard',
@@ -36,9 +37,9 @@ export class DashboardComponent implements OnInit {
         private utilService: UtilService,
         private errorService: ErrorService,
         private dashboardService: DashboardService,
-        private tokenStorage: TokenStorage
+        private tokenStorage: TokenStorage,
+        private router: Router
     ) {
-        this.getUserRole();
     }
 
     revenueAreaChart: ChartType;
@@ -54,11 +55,6 @@ export class DashboardComponent implements OnInit {
                 );
             }
         );
-    }
-    private getUserRole() {
-        this.tokenStorage.getUser().subscribe((res: any) => {
-            this.userRole = res.role;
-        });
     }
 
     private getDataNumber() {
@@ -112,11 +108,34 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getDataNumber();
-        this.getDoctors();
-        this.getNewData();
-        this.getGraphData();
+      this.tokenStorage.getUser().subscribe((res: any) => {
+        this.userRole = res.role;
+        if (res.role === 'admin') {
+          this.getDataNumber();
+          this.getDoctors();
+          this.getNewData();
+          this.getGraphData();
+        } else {
+          this.router.navigate(['/appointment/']);
+        }
+    });
+
     }
+
+
+  getRecentAppointment() {
+    this.dashboardService.recentAppointment().subscribe(
+      (res: any) => {
+          console.log('New >>>>>>>>>>>>>>>>>>', res);
+          this.recentAppointment = res.data;
+      },
+      (error) => {
+          this.utilService.showFailToast(
+              this.errorService.getErrors(error)
+          );
+      }
+  );
+  }
 
     /**
      * fetches the dashboard value

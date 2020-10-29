@@ -10,7 +10,7 @@ export const MENU: MenuItem[] = [
         label: 'Dashboard',
         icon: 'home',
         link: '/dashboard',
-        role: '',
+        role: 'admin',
     },
     {
         label: 'Patient',

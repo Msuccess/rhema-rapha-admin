@@ -31,7 +31,7 @@ export class TaskComponent implements OnInit {
     }
 
     cancelAppointment(id: string) {
-        this.utilService.showCancelConfirm(() => this.cancel(id), '');
+        this.utilService.showCancelConfirm(() => this.cancel(id));
     }
 
     ngOnInit() {}
