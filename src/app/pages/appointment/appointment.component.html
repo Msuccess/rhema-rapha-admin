@@ -76,10 +76,6 @@
                     <mat-icon>more_vert</mat-icon>
                   </button>
                   <mat-menu #beforeMenu="matMenu" xPosition="before">
-                    <button mat-menu-item (click)="confirmDelete(row.id)">
-                      <mat-icon>delete</mat-icon>
-                      <span>Delete</span>
-                    </button>
                     <button mat-menu-item (click)="viewAppointment(row.id)">
                       <mat-icon>adjust</mat-icon>
                       <span>View</span>
@@ -88,10 +84,14 @@
                       <mat-icon>close</mat-icon>
                       <span>Cancel</span>
                     </button>
-
                     <button mat-menu-item (click)="editAppointment(row)">
                       <mat-icon>create</mat-icon>
                       <span>Edit</span>
+                    </button>
+                    <hr>
+                    <button mat-menu-item (click)="confirmDelete(row.id)">
+                      <mat-icon>delete</mat-icon>
+                      <span>Delete</span>
                     </button>
 
                   </mat-menu>

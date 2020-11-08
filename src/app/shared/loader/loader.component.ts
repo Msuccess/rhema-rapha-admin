@@ -1,18 +1,19 @@
 import { BehaviorSubject } from 'rxjs';
 import { LoaderService } from './loader.service';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { AfterViewChecked } from '@angular/core';
 
 @Component({
     selector: 'app-loader',
     templateUrl: './loader.component.html',
     styleUrls: ['./loader.component.scss'],
 })
-export class LoaderComponent implements OnInit {
+export class LoaderComponent implements OnInit, AfterViewInit {
     show = new BehaviorSubject<boolean>(false);
     constructor(private loaderService: LoaderService) {}
 
-    ngOnInit(): void {
+    ngOnInit(): void {}
+
+    ngAfterViewInit(): void {
         setTimeout(() => {
             this.render();
         }, 0);

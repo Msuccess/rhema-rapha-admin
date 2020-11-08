@@ -1,3 +1,4 @@
+import { TokenStorage } from './../../../../auth/service/token-storage.service';
 import { PatientService } from './../../../patient/service/patient.service';
 import { DoctorService } from './../../../doctor/service/doctor.service';
 import { UtilService } from './../../../../core/services/util.service';
@@ -28,9 +29,11 @@ export class AddAppointmentComponent implements OnInit {
     patients = [];
     appointmentTimes = [];
     appointmentDays = [];
+    userRole: any;
 
     constructor(
         private fb: FormBuilder,
+        private tokenStorage: TokenStorage,
         private errorService: ErrorService,
         private utilService: UtilService,
         @Inject(MAT_DIALOG_DATA) public data: AppointmentModel,
@@ -139,6 +142,21 @@ export class AddAppointmentComponent implements OnInit {
             );
     }
 
+    getUserRole() {
+        this.tokenStorage.getUser().subscribe((res) => {
+            this.userRole = res.role;
+            switch (this.userRole.toLowerCase()) {
+                case 'admin':
+                    this.getDoctors();
+                    break;
+
+                case 'doctor':
+                    this.getDoctorById();
+                    break;
+            }
+        });
+    }
+
     addAppointment() {
         this.appointmentService.create(this.appointmentForm.value).subscribe(
             (res) => {
@@ -205,18 +223,31 @@ export class AddAppointmentComponent implements OnInit {
         );
     }
 
+    getDoctorById() {
+        this.doctorService.getDoctorWithUserId().subscribe(
+            (res: any) => {
+                console.log('Doctor', res.data);
+                this.doctors.push(res.data);
+            },
+            (error) => {
+                this.utilService.showFailToast(
+                    this.errorService.getErrors(error)
+                );
+            }
+        );
+    }
+
     getAppoitmentTime(timeString: string) {
         const times = timeString.split(' ');
         this.appointmentTimes = times;
     }
 
     ngOnInit() {
-        this.getDoctors();
+        this.getUserRole();
         this.getPatients();
         this.initAppointmentForm();
         if (this.data) {
             this.updating$.next(true);
-            console.log('>>>>>>>>>>>GGGGGG>', this.data);
             this.selectedDoctor(null);
             this.appointmentForm.patchValue(this.data);
         }
